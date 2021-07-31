@@ -1,6 +1,6 @@
 {
-  "name": "my-new-app",
-  "productName": "my-new-app",
+  "name": "ff-market_check",
+  "productName": "ff-market_check",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
