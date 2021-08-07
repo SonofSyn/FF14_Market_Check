@@ -1,4 +1,5 @@
 import React from "react";
+import StandardTable from "../components/tables/StandardTable";
 interface Props {}
 interface State {}
 class MainView extends React.Component<Props, State> {
@@ -20,6 +21,7 @@ class MainView extends React.Component<Props, State> {
         return (
             <>
                 <h1>Main</h1>
+                <StandardTable></StandardTable>
             </>
         );
     }

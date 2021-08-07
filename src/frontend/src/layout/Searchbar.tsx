@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 interface Props {
     currentSearch: string;
     setCurrentSearch: (search: string) => void;
@@ -29,16 +29,16 @@ class Searchbar extends React.Component<Props, State> {
     render() {
         return (
             <>
-                <div className={"searchbar"}>
+                <Container className={"searchbar"}>
                     <Form.Group>
-                        <div className={"searchdiv"}>
+                        <Container className={"searchdiv"}>
                             <Form.Label>Suche: </Form.Label>
-                        </div>
-                        <div>
+                        </Container>
+                        <Container>
                             <Form.Control value={this.state.currentSearch} onChange={this.onSearch.bind(this)} />
-                        </div>
+                        </Container>
                     </Form.Group>
-                </div>
+                </Container>
             </>
         );
     }

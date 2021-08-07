@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import { Links, Views } from "../../frontendInterface";
 import MainView from "../views/MainView";
 import Navigation from "./Navigation";
@@ -62,13 +63,12 @@ class DefaultPage extends React.Component<Props, State> {
     createSearchBar() {
         return (
             <>
-                <div className={"filterarea"}>
+                <Container className={"filterarea"}>
                     <Searchbar
                         currentSearch={this.state.currentSearch}
                         setCurrentSearch={this.setCurrentSearch.bind(this)}
                     />
-                </div>
-                ;
+                </Container>
             </>
         );
     }
@@ -80,13 +80,14 @@ class DefaultPage extends React.Component<Props, State> {
     render() {
         return (
             <>
-                <div className={"maincontainer"}>
-                    <div className={"navarea"}>
+                <Container className={"maincontainer"}>
+                    <Container className={"navarea"}>
                         <Navigation setView={this.links} />
-                    </div>
+                    </Container>
                     {this.createSearchBar()}
-                    <div className={"contentarea"}>{this.createViews()[this.state.currentView]()}</div>
-                </div>
+                    <Container className={"Infobar"}></Container>
+                    <Container className={"contentarea"}>{this.createViews()[this.state.currentView]()}</Container>
+                </Container>
             </>
         );
     }

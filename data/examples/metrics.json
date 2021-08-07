@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1879,
+        "date": "Thu Jul 29 2021 00:45:02 GMT+0200 (GMT+02:00)",
+        "name": "Mythische Lanze",
+        "minPriceNQ": null,
+        "maxPriceNQ": null,
+        "minPriceHQ": 178500,
+        "maxPriceHQ": 199498,
+        "amountHQListing": 9
+    },
+    {
+        "id": 1670,
+        "date": "Tue Jul 27 2021 08:24:33 GMT+0200 (GMT+02:00)",
+        "name": "Äolus-Scimitar",
+        "minPriceNQ": null,
+        "maxPriceNQ": null,
+        "minPriceHQ": 89248,
+        "maxPriceHQ": 104998,
+        "amountHQListing": 7
+    },
+    {
+        "id": 2492,
+        "date": "Sun Jul 25 2021 19:48:42 GMT+0200 (GMT+02:00)",
+        "name": "Miliz-Mörser",
+        "minPriceNQ": null,
+        "maxPriceNQ": null,
+        "minPriceHQ": 94500,
+        "maxPriceHQ": 94500,
+        "amountHQListing": 1
+    },
+    {
+        "id": 2400,
+        "date": "Wed Jul 28 2021 10:21:15 GMT+0200 (GMT+02:00)",
+        "name": "Mithril-Ornamenthammer",
+        "minPriceNQ": 42000,
+        "maxPriceNQ": 42000,
+        "minPriceHQ": 126000,
+        "maxPriceHQ": 126000,
+        "amountNQListings": 1,
+        "amountHQListing": 1
+    },
+    {
+        "id": 2325,
+        "date": "Wed Jul 28 2021 14:32:43 GMT+0200 (GMT+02:00)",
+        "name": "Kupferstich-Koboldeisen-Fuchsschwanz",
+        "minPriceNQ": 29400,
+        "maxPriceNQ": 29400,
+        "minPriceHQ": 131250,
+        "maxPriceHQ": 131250,
+        "amountNQListings": 1,
+        "amountHQListing": 1
+    }
+]

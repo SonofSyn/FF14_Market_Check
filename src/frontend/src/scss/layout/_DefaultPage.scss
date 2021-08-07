@@ -39,31 +39,122 @@ td {
 .maincontainer {
     height: inherit;
     width: inherit;
-    background-color: rgba(221, 221, 221, 0.952);
+    background-color: rgb(45, 50, 65);
+    margin: 0 !important;
 }
 .navarea {
     min-height: 5%;
     width: inherit;
-    background-color: rgb(15, 65, 65);
+    background-color: rgb(15, 55, 55);
     opacity: 0.85;
+    padding-left: 1em;
 }
 .filterarea {
     min-height: 3em;
     width: inherit;
-    background-color: rgb(105, 105, 105);
+    background-color: rgb(85, 85, 85);
     border: 10px black;
+    border-radius: 4em;
+    margin: 1em;
 }
 .contentarea {
     height: 95%;
     width: inherit;
-    background-color: rgba(221, 221, 221, 0.952);
+    background-color: rgb(45, 50, 65);
     overflow-y: auto;
-    padding-bottom: 5em;
-    overflow-y: hidden;
+    padding: 5em;
+    margin: 0 2em 0 2em;
+    color: white;
 }
 
 @media only screen and (max-width: 1064px) {
     .contentarea {
         overflow-y: scroll;
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgb(65, 65, 65);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(15, 65, 65);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@media only screen and (min-width: 1400px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 1320px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
+        max-width: 100% !important;
     }
 }
