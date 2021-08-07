@@ -2,12 +2,14 @@ import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
 import TableCaption from "./TableCaption";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import { Container } from "react-bootstrap";
 
 interface Props {
     // columns:object;
     // data:object;
 }
-interface State {}
+interface State { }
 
 class StandardTable extends React.Component<Props, State> {
     private columns = [
@@ -21,6 +23,14 @@ class StandardTable extends React.Component<Props, State> {
         { id: 2, name: "Jeffrey", animal: "Giraffe" },
         { id: 3, name: "Alice", animal: "Giraffe" },
         { id: 4, name: "Alice", animal: "Tiger" },
+        { id: 5, name: "George", animal: "Monkey" },
+        { id: 6, name: "Jeffrey", animal: "Giraffe" },
+        { id: 7, name: "Alice", animal: "Giraffe" },
+        { id: 8, name: "Alice", animal: "Tiger" },
+        { id: 9, name: "George", animal: "Monkey" },
+        { id: 10, name: "Jeffrey", animal: "Giraffe" },
+        { id: 11, name: "Alice", animal: "Giraffe" },
+        { id: 12, name: "Alice", animal: "Tiger" },
     ];
 
     constructor(props: Props) {
@@ -40,9 +50,11 @@ class StandardTable extends React.Component<Props, State> {
     render() {
         return (
             <>
+
+
                 <TableCaption caption="FF14"></TableCaption>
                 <BootstrapTable
-                    headerClasses="tableheader"
+                    headerClasses="tableHeader"
                     bodyClasses="tableBody"
                     rowClasses="tableRow"
                     keyField="id"
@@ -50,8 +62,9 @@ class StandardTable extends React.Component<Props, State> {
                     columns={this.columns}
                     bordered={false}
                     filter={filterFactory()}
-                    // hover
+                    pagination={paginationFactory({})}
                 />
+                <Container className="filler"></Container>
             </>
         );
     }
