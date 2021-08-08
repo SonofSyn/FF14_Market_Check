@@ -20,7 +20,6 @@ export default class Navigation extends React.Component<Props, State> {
     static createState(): State {
         return {};
     }
-
     render() {
         return (
             <Navbar expand="md">
@@ -31,8 +30,17 @@ export default class Navigation extends React.Component<Props, State> {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Form inline>
-                            <Button id="nav_btn" onClick={() => {}}>
-                                Test
+                            <Button id="nav_btn" onClick={() => this.props.setView["RetainerView"]()}>
+                                Gehilfen
+                            </Button>
+                            <Button id="nav_btn" onClick={() => this.props.setView["MetricView"]()}>
+                                Gegenstände
+                            </Button>
+                            <Button id="nav_btn" onClick={() => this.props.setView["ListingView"]()}>
+                                Markt
+                            </Button>
+                            <Button id="nav_btn" onClick={() => this.props.setView["FilteredView"]()}>
+                                Markt Detail
                             </Button>
                         </Form>
                     </Nav>

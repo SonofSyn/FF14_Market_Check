@@ -21,7 +21,8 @@ class MainView extends React.Component<Props, State> {
         return (
             <>
                 <h1>Main</h1>
-                <StandardTable></StandardTable>
+                <h1>Front</h1>
+                <h1>Data Update</h1>
             </>
         );
     }
