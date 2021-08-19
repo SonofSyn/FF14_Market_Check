@@ -1,8 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { LISTINGSHEADER, RETAINERHEADER, DATAHEADER } from "../../frontendConst";
+import { LISTINGSHEADER, RETAINERHEADER, DATAHEADER, ORDERSHEADER } from "../../frontendConst";
 import { LISTINGS, METRICS, RETAINERS, FILTERED } from "../../stubs";
-import { Links, Views } from "../../frontendInterface";
+import { ItemMetrics, Links, ListingData, ResponseData, Retainer, Views } from "../../frontendInterface";
 import FilteredView from "../views/FilteredView";
 import ListingView from "../views/ListingView";
 import MainView from "../views/MainView";
@@ -12,11 +12,19 @@ import Navigation from "./Navigation";
 import Searchbar from "./Searchbar";
 interface Props {
     id: string;
+    metrics: ItemMetrics[];
+    retainer: Retainer[];
+    filtered: ResponseData[];
+    listings: ListingData[];
 }
 interface State {
     id: string;
     currentView: string;
     currentSearch: string;
+    metrics: ItemMetrics[];
+    retainer: Retainer[];
+    filtered: ResponseData[];
+    listings: ListingData[];
 }
 class DefaultPage extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -25,13 +33,28 @@ class DefaultPage extends React.Component<Props, State> {
     }
 
     static createState(props: Props): State {
-        return { id: props.id, currentView: "MainView", currentSearch: "" };
+        console.log(props.listings);
+        return {
+            id: props.id,
+            currentView: "MainView",
+            currentSearch: "",
+            metrics: props.metrics,
+            retainer: props.retainer,
+            filtered: props.filtered,
+            listings: props.listings,
+        };
     }
 
-    // static getDerivedStateFromProps(props: Props, state: State): State | null {
-    //     if (props.id !== state.id) return null;
-    //     return DefaultPage.createState(props);
-    // }
+    static getDerivedStateFromProps(props: Props, state: State): State | null {
+        if (
+            props.metrics.length === state.metrics.length &&
+            props.filtered.length === state.filtered.length &&
+            props.retainer.length === state.retainer.length &&
+            props.listings.length === state.listings.length
+        )
+            return null;
+        return DefaultPage.createState(props);
+    }
 
     private viewNames: string[] = ["MainView", "FilteredView", "ListingView", "MetricView", "RetainerView"];
 
@@ -57,19 +80,23 @@ class DefaultPage extends React.Component<Props, State> {
                 name: this.viewNames[0],
             },
             {
-                component: <FilteredView columns={DATAHEADER} data={FILTERED} />,
+                component: <FilteredView columns={DATAHEADER} ordercolumns={ORDERSHEADER} data={this.state.filtered} />,
                 name: this.viewNames[1],
             },
             {
-                component: <ListingView columns={LISTINGSHEADER} data={LISTINGS} />,
+                component: (
+                    <ListingView columns={LISTINGSHEADER} ordercolumns={ORDERSHEADER} data={this.state.listings} />
+                ),
                 name: this.viewNames[2],
             },
             {
-                component: <MetricView columns={DATAHEADER} data={METRICS} />,
+                component: <MetricView columns={DATAHEADER} data={this.state.metrics} />,
                 name: this.viewNames[3],
             },
             {
-                component: <RetainerView columns={RETAINERHEADER} data={RETAINERS} />,
+                component: (
+                    <RetainerView columns={RETAINERHEADER} ordercolumns={ORDERSHEADER} data={this.state.retainer} />
+                ),
                 name: this.viewNames[4],
             },
         ];

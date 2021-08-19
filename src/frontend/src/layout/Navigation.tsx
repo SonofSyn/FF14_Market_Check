@@ -40,7 +40,7 @@ export default class Navigation extends React.Component<Props, State> {
                                 Markt
                             </Button>
                             <Button id="nav_btn" onClick={() => this.props.setView["FilteredView"]()}>
-                                Markt Detail
+                                Filter
                             </Button>
                         </Form>
                     </Nav>

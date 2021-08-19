@@ -1,6 +1,5 @@
 import React from "react";
 import BootstrapTable from "react-bootstrap-table-next";
-import TableCaption from "./TableCaption";
 import filterFactory from "react-bootstrap-table2-filter";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { Container } from "react-bootstrap";
@@ -8,6 +7,7 @@ import { TableHeader, TableData, ItemMetrics } from "../../../frontendInterface"
 interface Props {
     columns: TableHeader[];
     data: TableData;
+    className: string;
 }
 interface State {}
 class StandardTable extends React.Component<Props, State> {
@@ -49,34 +49,66 @@ class StandardTable extends React.Component<Props, State> {
     render() {
         return (
             <>
-                <TableCaption caption="FF14"></TableCaption>
-                <BootstrapTable
-                    headerClasses="tableHeader"
-                    bodyClasses="tableBody"
-                    rowClasses="tableRow"
-                    keyField="id"
-                    data={this.props.data.map((e, IX) => {
-                        if (e.type === "listing") {
-                            return { id: IX, gameid: e.gameID };
-                        }
-                        if (e.type === "metrics") {
-                            return { id: IX, gameid: e.gameID };
-                        }
-                        if (e.type === "response") {
-                            return { id: IX, gameid: e.gameID };
-                        }
-                        if (e.type === "order") {
-                            return { id: IX };
-                        }
-                        if (e.type === "retainer") {
-                            return { id: IX };
-                        }
-                    })}
-                    columns={this.props.columns}
-                    bordered={false}
-                    filter={filterFactory()}
-                    pagination={paginationFactory({})}
-                />
+                <Container className={"tableContainer " + this.props.className}>
+                    <BootstrapTable
+                        parentClassName="table"
+                        headerClasses="tableHeader"
+                        bodyClasses="tableBody"
+                        rowClasses="tableRow"
+                        keyField="id"
+                        data={this.props.data.map((e, IX) => {
+                            if (e.type === "listing") {
+                                return { id: IX, gameid: e.gameID, name: e.name, update: e.date };
+                            }
+                            if (e.type === "metrics") {
+                                return {
+                                    id: IX,
+                                    gameid: e.gameID,
+                                    name: e.name,
+                                    update: e.date,
+                                    minpricenq: e.minPriceNQ,
+                                    maxpricenq: e.maxPriceNQ,
+                                    minpricehq: e.minPriceHQ,
+                                    maxpricehq: e.maxPriceHQ,
+                                    amountNQ: e.amountNQListings,
+                                    amountHQ: e.amountHQListing,
+                                };
+                            }
+                            if (e.type === "response") {
+                                return {
+                                    id: IX,
+                                    gameid: e.gameID,
+                                    name: e.name,
+                                    update: e.date,
+                                    minpricenq: e.minPriceNQ,
+                                    maxpricenq: e.maxPriceNQ,
+                                    minpricehq: e.minPriceHQ,
+                                    maxpricehq: e.maxPriceHQ,
+                                    amountNQ: e.amountNQListings,
+                                    amountHQ: e.amountHQListing,
+                                };
+                            }
+                            if (e.type === "order") {
+                                return {
+                                    id: IX,
+                                    lastupdate: e.lastReviewTime,
+                                    priceperunit: e.pricePerUnit,
+                                    quantity: e.quantity,
+                                    total: e.total,
+                                    hq: e.hq,
+                                    retainername: e.retainerName,
+                                };
+                            }
+                            if (e.type === "retainer") {
+                                return { id: IX, name: e.name, type: e.type };
+                            }
+                        })}
+                        columns={this.props.columns}
+                        filter={filterFactory()}
+                        pagination={paginationFactory({})}
+                    />
+                </Container>
+
                 <Container className="filler"></Container>
             </>
         );

@@ -1,3 +1,9 @@
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+}
+
 .tableHeader {
     color: white;
 }
@@ -19,5 +25,30 @@
 }
 
 .text-filter {
-    margin-left: 1em;
+}
+.tableContainer {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(85, 85, 85);
+    padding: 2em;
+    border-radius: 1em;
+    overflow-x: auto;
+}
+
+th {
+    background-color: #666d81 !important;
+}
+
+td {
+    background-color: #23262f !important;
+}
+
+.table-bordered > :not(caption) > * > * {
+    border-width: 0 1px;
+    border-color: #666d81 !important;
+}
+
+.table-bordered > :not(caption) > * {
+    border-width: 1px 0;
+    border-color: #666d81 !important;
 }

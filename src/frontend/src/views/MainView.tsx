@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Container } from "react-bootstrap";
 import StandardTable from "../components/tables/StandardTable";
 interface Props {}
 interface State {}
@@ -20,9 +21,17 @@ class MainView extends React.Component<Props, State> {
     render() {
         return (
             <>
-                <h1>Main</h1>
-                <h1>Front</h1>
-                <h1>Data Update</h1>
+                <Col>
+                    <Container className="main">
+                        <h1>Main</h1>
+                    </Container>
+                    <Container className="main">
+                        <h1>Front</h1>
+                    </Container>
+                    <Container className="main">
+                        <h1>Data Update</h1>
+                    </Container>
+                </Col>
             </>
         );
     }

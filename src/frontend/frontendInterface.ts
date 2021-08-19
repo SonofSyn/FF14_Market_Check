@@ -74,3 +74,50 @@ export interface DataElement {
 }
 export type DataElementType = "metrics" | "retainer" | "listing" | "order" | "response";
 export type TableData = ItemMetrics[] | Retainer[] | ItemMetrics[] | ListingData[] | Order[] | ResponseData[];
+
+export interface eOrder {
+    lastReviewTime: string;
+    pricePerUnit: number;
+    total: number;
+    quantity: number;
+    hq: boolean;
+    retainerName: string;
+}
+
+export interface eListingData {
+    id: string;
+    date: string;
+    name: string;
+    orders: Order[];
+}
+
+export interface eItemMetrics {
+    id: string;
+    date: string;
+    name: string;
+    minPriceNQ: number;
+    maxPriceNQ: number;
+    minPriceHQ: number;
+    maxPriceHQ: number;
+    amountNQListings: number;
+    amountHQListing: number;
+}
+
+export interface eResponseData {
+    id: string;
+    date: string;
+    name: string;
+    minPriceNQ: number;
+    maxPriceNQ: number;
+    minPriceHQ: number;
+    maxPriceHQ: number;
+    amountNQListings: number;
+    amountHQListing: number;
+    orders: Order[];
+}
+
+export interface eRetainer {
+    name: string;
+    retainerOrder: Order;
+    undercuts: Order[];
+}

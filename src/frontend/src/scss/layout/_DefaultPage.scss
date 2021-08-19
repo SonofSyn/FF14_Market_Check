@@ -17,7 +17,7 @@ body {
 
 .table-bordered thead th {
     border-bottom-width: 2px;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 800;
 }
 
@@ -32,7 +32,7 @@ th,
 td {
     padding: 10px;
     padding-top: 35px;
-    font-size: 2em;
+    font-size: 1em;
     font-weight: 800;
 }
 
@@ -57,14 +57,21 @@ td {
     border: 10px black;
     border-radius: 4em;
     margin: 1em;
+    width: 85% !important;
 }
 .contentarea {
     height: 95%;
     width: inherit;
     background-color: rgb(45, 50, 65);
     overflow-y: auto;
-    margin: 0 2em 0 2em;
     color: white;
+    margin-left: auto;
+    margin-right: auto;
+}
+.info {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 50% !important;
 }
 
 @media only screen and (max-width: 1064px) {
