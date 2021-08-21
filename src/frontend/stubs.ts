@@ -50,7 +50,6 @@ export const RETAINERS: Retainer[] = [
         retainerOrder: {
             id: "1",
             type: "order",
-            lastReviewTime: "1627388265",
             pricePerUnit: 47250,
             total: 47250,
             quantity: 1,
@@ -61,7 +60,6 @@ export const RETAINERS: Retainer[] = [
             {
                 id: "1",
                 type: "order",
-                lastReviewTime: "1627383116",
                 pricePerUnit: 42000,
                 total: 42000,
                 quantity: 1,
@@ -77,7 +75,7 @@ export const RETAINERS: Retainer[] = [
         retainerOrder: {
             id: "1",
             type: "order",
-            lastReviewTime: "1627454338",
+
             pricePerUnit: 57750,
             total: 57750,
             quantity: 1,
@@ -88,7 +86,7 @@ export const RETAINERS: Retainer[] = [
             {
                 id: "1",
                 type: "order",
-                lastReviewTime: "1627452421",
+
                 pricePerUnit: 57644,
                 total: 57644,
                 quantity: 1,
@@ -98,7 +96,7 @@ export const RETAINERS: Retainer[] = [
             {
                 id: "2",
                 type: "order",
-                lastReviewTime: "1627453195",
+
                 pricePerUnit: 57645,
                 total: 57645,
                 quantity: 1,
@@ -108,7 +106,7 @@ export const RETAINERS: Retainer[] = [
             {
                 id: "3",
                 type: "order",
-                lastReviewTime: "1627453195",
+
                 pricePerUnit: 57645,
                 total: 57645,
                 quantity: 1,
@@ -206,7 +204,7 @@ export const LISTINGS: ListingData[] = [
             {
                 id: "1",
                 type: "order",
-                lastReviewTime: "1626439657",
+
                 pricePerUnit: 6300,
                 total: 6300,
                 quantity: 1,
@@ -216,7 +214,7 @@ export const LISTINGS: ListingData[] = [
             {
                 id: "2",
                 type: "order",
-                lastReviewTime: "1626439657",
+
                 pricePerUnit: 6300,
                 total: 6300,
                 quantity: 1,
@@ -226,7 +224,7 @@ export const LISTINGS: ListingData[] = [
             {
                 id: "3",
                 type: "order",
-                lastReviewTime: "1626439657",
+
                 pricePerUnit: 6300,
                 total: 6300,
                 quantity: 1,

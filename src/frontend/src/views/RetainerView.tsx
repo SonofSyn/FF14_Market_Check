@@ -32,7 +32,6 @@ class RetainerView extends React.Component<Props, State> {
                         <Col>
                             <Row className="table-info">
                                 <Col>{e.name}</Col>
-                                <Col>{e.retainerOrder.lastReviewTime}</Col>
                                 <Col>{e.retainerOrder.pricePerUnit}</Col>
                                 <Col>{e.retainerOrder.total}</Col>
                                 <Col>{e.retainerOrder.quantity}</Col>

@@ -91,7 +91,6 @@ class StandardTable extends React.Component<Props, State> {
                             if (e.type === "order") {
                                 return {
                                     id: IX,
-                                    lastupdate: e.lastReviewTime,
                                     priceperunit: e.pricePerUnit,
                                     quantity: e.quantity,
                                     total: e.total,

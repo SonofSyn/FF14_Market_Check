@@ -18,7 +18,6 @@ export interface TableHeader {
 
 export interface Order extends DataElement {
     type: "order";
-    lastReviewTime: string;
     pricePerUnit: number;
     total: number;
     quantity: number;

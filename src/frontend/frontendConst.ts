@@ -27,7 +27,6 @@ export const RETAINERHEADER: TableHeader[] = [
 ];
 export const ORDERSHEADER: TableHeader[] = [
     { dataField: "id", text: "ID", filter: textFilter({ placeholder: " " }) },
-    { dataField: "lastupdate", text: "Letzter Update", filter: textFilter({ placeholder: " " }) },
     { dataField: "priceperunit", text: "Preis pro", filter: textFilter({ placeholder: " " }) },
     { dataField: "quantity", text: "Menge", filter: textFilter({ placeholder: " " }) },
     { dataField: "total", text: "Komplett Preis", filter: textFilter({ placeholder: " " }) },

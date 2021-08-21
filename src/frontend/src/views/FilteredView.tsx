@@ -2,12 +2,15 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { TableHeader, ItemMetrics, ResponseData } from "../../frontendInterface";
 import StandardTable from "../components/tables/StandardTable";
+import Pagination from "rc-pagination";
 interface Props {
     columns: TableHeader[];
     ordercolumns: TableHeader[];
     data: ResponseData[];
 }
-interface State {}
+interface State {
+    currentPage: number;
+}
 class FilteredView extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
@@ -15,7 +18,7 @@ class FilteredView extends React.Component<Props, State> {
     }
 
     static createState(props: Props): State {
-        return {};
+        return { currentPage: 0 };
     }
 
     // static getDerivedStateFromProps(props: Props, state: State): (State | null) {
@@ -25,25 +28,24 @@ class FilteredView extends React.Component<Props, State> {
 
     buildTable() {
         let back: JSX.Element[] = [];
-        console.log(this.props.data);
         if (this.props.data.length !== 0) {
             this.props.data.forEach((e, eIx) => {
                 back.push(
-                    <Row key={"a" + eIx}>
-                        <Col key={"b" + eIx}>
+                    <Row key={e + "" + eIx}>
+                        <Col key={e + "" + eIx}>
                             <Row className="table-info" key={"c" + eIx}>
-                                <Col key={"d" + eIx}>{e.id}</Col>
-                                <Col key={"e" + eIx}>{e.gameID}</Col>
-                                <Col key={"f" + eIx}>{e.name}</Col>
-                                <Col key={"g" + eIx}>{e.minPriceHQ}</Col>
-                                <Col key={"g" + eIx}>{e.maxPriceHQ}</Col>
-                                <Col key={"g" + eIx}>{e.minPriceNQ}</Col>
-                                <Col key={"g" + eIx}>{e.maxPriceNQ}</Col>
-                                <Col key={"g" + eIx}>{e.amountNQListings}</Col>
-                                <Col key={"g" + eIx}>{e.amountHQListing}</Col>
-                                <Col key={"g" + eIx}>{e.date}</Col>
+                                <Col key={e + "" + eIx}>{e.id}</Col>
+                                <Col key={e + "" + eIx}>{e.gameID}</Col>
+                                <Col key={e + "" + eIx}>{e.name}</Col>
+                                <Col key={e + "" + eIx}>{e.minPriceHQ}</Col>
+                                <Col key={e + "" + eIx}>{e.maxPriceHQ}</Col>
+                                <Col key={e + "" + eIx}>{e.minPriceNQ}</Col>
+                                <Col key={e + "" + eIx}>{e.maxPriceNQ}</Col>
+                                <Col key={e + "" + eIx}>{e.amountNQListings}</Col>
+                                <Col key={e + "" + eIx}>{e.amountHQListing}</Col>
+                                <Col key={e + "" + eIx}>{e.date}</Col>
                             </Row>
-                            <Row key={"h" + eIx}>
+                            <Row key={e + "" + +eIx}>
                                 <StandardTable
                                     className="listing-view"
                                     key={"order" + eIx}
@@ -59,14 +61,23 @@ class FilteredView extends React.Component<Props, State> {
 
         return back;
     }
+    private pageSize = 25;
 
     render() {
         return (
             <>
-                <Container className="info">
-                    <h1>Filtered</h1>
-                </Container>
-                {this.buildTable()}
+                {this.buildTable()
+                    .slice(this.state.currentPage * this.pageSize, (this.state.currentPage + 1) * this.pageSize)
+                    .map((itemm, ix) => (
+                        <div key={ix} className="post">
+                            {itemm}
+                        </div>
+                    ))}
+                <Pagination
+                    pageSize={this.pageSize}
+                    total={this.buildTable().length}
+                    onChange={(e) => this.setState({ currentPage: e })}
+                />
             </>
         );
     }

@@ -57,7 +57,6 @@ export class MarketCheck extends React.Component<Props, State> {
                         return {
                             id: ix.toString(),
                             type: "order",
-                            lastReviewTime: data.lastReviewTime,
                             pricePerUnit: data.pricePerUnit,
                             total: data.total,
                             quantity: data.quantity,
@@ -75,7 +74,7 @@ export class MarketCheck extends React.Component<Props, State> {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
-                    date: data.date,
+                    date: data.date.slice(0, 15),
                     name: data.name,
                     type: "response",
                     amountHQListing: data.amountHQListing,
@@ -88,7 +87,6 @@ export class MarketCheck extends React.Component<Props, State> {
                         return {
                             id: ix.toString(),
                             type: "order",
-                            lastReviewTime: data.lastReviewTime,
                             pricePerUnit: data.pricePerUnit,
                             total: data.total,
                             quantity: data.quantity,
@@ -106,13 +104,12 @@ export class MarketCheck extends React.Component<Props, State> {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
-                    date: data.date,
+                    date: data.date.slice(0, 15),
                     name: data.name,
                     orders: data.orders.map((data, ix) => {
                         return {
                             id: ix.toString(),
                             type: "order",
-                            lastReviewTime: data.lastReviewTime,
                             pricePerUnit: data.pricePerUnit,
                             total: data.total,
                             quantity: data.quantity,
@@ -131,7 +128,7 @@ export class MarketCheck extends React.Component<Props, State> {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
-                    date: data.date,
+                    date: data.date.slice(0, 15),
                     name: data.name,
                     type: "metrics",
                     amountHQListing: data.amountHQListing,
