@@ -4,22 +4,14 @@ import { Links } from "../../frontendInterface";
 interface Props {
     setView: Links;
 }
-interface State {}
+
 /**
  * React component to handle buttons to switch displayed content
  *
  * @class Navbar
  * @extends {React.Component<Props, State>}
  */
-export default class Navigation extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = Navigation.createState();
-    }
-
-    static createState(): State {
-        return {};
-    }
+export default class Navigation extends React.Component<Props> {
     render() {
         return (
             <Navbar expand="md">
@@ -38,9 +30,6 @@ export default class Navigation extends React.Component<Props, State> {
                             </Button>
                             <Button id="nav_btn" onClick={() => this.props.setView["ListingView"]()}>
                                 Markt
-                            </Button>
-                            <Button id="nav_btn" onClick={() => this.props.setView["FilteredView"]()}>
-                                Filter
                             </Button>
                         </Form>
                     </Nav>

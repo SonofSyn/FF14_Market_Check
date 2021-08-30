@@ -3,7 +3,6 @@ import StandardTable from "../components/tables/StandardTable";
 import { TableHeader, Retainer } from "../../frontendInterface";
 import { Col, Container, Row } from "react-bootstrap";
 interface Props {
-    columns: TableHeader[];
     ordercolumns: TableHeader[];
     data: Retainer[];
 }
@@ -30,19 +29,21 @@ class RetainerView extends React.Component<Props, State> {
                 <>
                     <Row>
                         <Col>
-                            <Row className="table-info">
-                                <Col>{e.name}</Col>
-                                <Col>{e.retainerOrder.pricePerUnit}</Col>
-                                <Col>{e.retainerOrder.total}</Col>
-                                <Col>{e.retainerOrder.quantity}</Col>
-                                <Col>{e.retainerOrder.hq}</Col>
-                            </Row>
                             <Row>
                                 <StandardTable
                                     className="retainer-view"
                                     key={"order" + eIx}
                                     columns={this.props.ordercolumns}
                                     data={e.undercuts}
+                                    header={
+                                        <Row className="table-info">
+                                            <Col>{e.name}</Col>
+                                            <Col>{e.retainerOrder.pricePerUnit}</Col>
+                                            <Col>{e.retainerOrder.total}</Col>
+                                            <Col>{e.retainerOrder.quantity}</Col>
+                                            <Col>{e.retainerOrder.hq}</Col>
+                                        </Row>
+                                    }
                                 ></StandardTable>
                             </Row>
                         </Col>

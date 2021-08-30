@@ -1,15 +1,16 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Pagination } from "react-bootstrap";
 import { TableHeader, ListingData } from "../../frontendInterface";
-import Pagination from "rc-pagination";
 import StandardTable from "../components/tables/StandardTable";
 interface Props {
     columns: TableHeader[];
     ordercolumns: TableHeader[];
     data: ListingData[];
+    priceFilter: number;
 }
 interface State {
     currentPage: number;
+    priceFilter: number;
 }
 class ListingView extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -18,43 +19,73 @@ class ListingView extends React.Component<Props, State> {
     }
 
     static createState(props: Props): State {
-        return { currentPage: 0 };
+        return { currentPage: 0, priceFilter: props.priceFilter };
     }
 
-    // static getDerivedStateFromProps(props: Props, state: State): (State | null) {
-    //     if (props.dummy !== state.dummy) return null
-    //     return ListingView.createState(props, state.showPopup)
-    // }
+    static getDerivedStateFromProps(props: Props, state: State): State | null {
+        if (props.priceFilter === state.priceFilter) return null;
+        return ListingView.createState(props);
+    }
 
     buildTable() {
         let back: JSX.Element[] = [];
         this.props.data.forEach((e, eIx) => {
-            back.push(
-                <>
-                    <Row key={e + "" + eIx}>
-                        <Col key={e + "" + eIx}>
-                            <Row className="table-info" key={e + "" + eIx}>
-                                <Col key={e + "" + eIx}>{e.id}</Col>
-                                <Col key={e + "" + eIx}>{e.gameID}</Col>
-                                <Col key={e + "" + eIx}>{e.name}</Col>
-                                <Col key={e + "" + eIx}>{e.date}</Col>
-                            </Row>
+            if (e.orders.length !== 0) {
+                if (e.orders[0].pricePerUnit >= this.state.priceFilter) {
+                    back.push(
+                        <>
                             <Row key={e + "" + eIx}>
                                 <StandardTable
                                     className="listing-view"
                                     key={"order" + eIx}
                                     columns={this.props.ordercolumns}
                                     data={e.orders}
+                                    header={
+                                        <Row className="table-info" key={e + "" + eIx}>
+                                            <Col key={e + "" + eIx}>{e.name}</Col>
+                                            {/* <Col key={e + "" + eIx}>{e.id}</Col>
+                                                    <Col key={e + "" + eIx}>{e.gameID}</Col> */}
+                                            <Col key={e + "" + eIx}>{e.date}</Col>
+                                        </Row>
+                                    }
                                 ></StandardTable>
                             </Row>
-                        </Col>
-                    </Row>
-                </>
-            );
+                        </>
+                    );
+                }
+            }
         });
         return back;
     }
     private pageSize = 25;
+
+    buildPages() {
+        let items = [];
+        items.push(
+            <>
+                <Pagination.First onClick={() => this.setState({ currentPage: 1 })} />
+                <Pagination.Prev onClick={() => this.setState({ currentPage: this.state.currentPage - 1 })} />
+            </>
+        );
+        for (let number = 1; number <= 5; number++) {
+            items.push(
+                <Pagination.Item
+                    key={number}
+                    active={number === this.state.currentPage}
+                    onClick={() => this.setState({ currentPage: number })}
+                >
+                    {number}
+                </Pagination.Item>
+            );
+        }
+        items.push(
+            <>
+                <Pagination.Next onClick={() => this.setState({ currentPage: this.state.currentPage + 1 })} />
+                <Pagination.Last onClick={() => this.setState({ currentPage: 1 })} />
+            </>
+        );
+        return items;
+    }
 
     render() {
         return (
@@ -66,12 +97,13 @@ class ListingView extends React.Component<Props, State> {
                             {itemm}
                         </div>
                     ))}
-                <Pagination
+                {this.buildPages()}
+                {/* <Pagination
                     pageSize={this.pageSize}
                     total={this.buildTable().length}
                     onChange={(e) => this.setState({ currentPage: e })}
                     className={"page"}
-                />
+                /> */}
             </>
         );
     }

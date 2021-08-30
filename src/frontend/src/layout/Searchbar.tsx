@@ -26,6 +26,7 @@ class Searchbar extends React.Component<Props, State> {
         this.props.setCurrentSearch(e.currentTarget.value);
     };
 
+
     render() {
         return (
             <>

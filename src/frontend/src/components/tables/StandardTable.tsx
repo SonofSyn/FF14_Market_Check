@@ -8,103 +8,105 @@ interface Props {
     columns: TableHeader[];
     data: TableData;
     className: string;
+    header?: JSX.Element;
 }
-interface State {}
-class StandardTable extends React.Component<Props, State> {
-    // private columns = [
-    //     { dataField: "id", text: "Id" },
-    //     { dataField: "name", text: "Name", filter: textFilter() },
-    //     { dataField: "animal", text: "Animal", filter: textFilter() },
-    // ];
 
-    // private data = [
-    //     { id: 1, name: "George", animal: "Monkey" },
-    //     { id: 2, name: "Jeffrey", animal: "Giraffe" },
-    //     { id: 3, name: "Alice", animal: "Giraffe" },
-    //     { id: 4, name: "Alice", animal: "Tiger" },
-    //     { id: 5, name: "George", animal: "Monkey" },
-    //     { id: 6, name: "Jeffrey", animal: "Giraffe" },
-    //     { id: 7, name: "Alice", animal: "Giraffe" },
-    //     { id: 8, name: "Alice", animal: "Tiger" },
-    //     { id: 9, name: "George", animal: "Monkey" },
-    //     { id: 10, name: "Jeffrey", animal: "Giraffe" },
-    //     { id: 11, name: "Alice", animal: "Giraffe" },
-    //     { id: 12, name: "Alice", animal: "Tiger" },
-    // ];
-
-    constructor(props: Props) {
-        super(props);
-        this.state = StandardTable.createState(props);
+class StandardTable extends React.Component<Props> {
+    determinData() {
+        return this.props.data.map((e, IX) => {
+            if (e.type === "listing") {
+                return { id: IX, gameid: e.gameID, name: e.name, update: e.date };
+            }
+            if (e.type === "metrics") {
+                return {
+                    id: IX,
+                    gameid: e.gameID,
+                    name: e.name,
+                    update: e.date,
+                    minpricenq: e.minPriceNQ,
+                    maxpricenq: e.maxPriceNQ,
+                    minpricehq: e.minPriceHQ,
+                    maxpricehq: e.maxPriceHQ,
+                    amountNQ: e.amountNQListings,
+                    amountHQ: e.amountHQListing,
+                };
+            }
+            if (e.type === "order") {
+                return {
+                    id: IX,
+                    priceperunit: e.pricePerUnit,
+                    quantity: e.quantity,
+                    total: e.total,
+                    hq: e.hq,
+                    retainername: e.retainerName,
+                };
+            }
+            if (e.type === "retainer") {
+                return { id: IX, name: e.name, type: e.type };
+            }
+        });
     }
-
-    static createState(props: Props): State {
-        return {};
-    }
-
-    // static getDerivedStateFromProps(props: Props, state: State): (State | null) {
-    //     if (props.dummy !== state.dummy) return null
-    //     return StandardTable.createState(props, state.showPopup)
-    // }
 
     render() {
         return (
             <>
                 <Container className={"tableContainer " + this.props.className}>
+                    {this.props.header ? this.props.header : <></>}
                     <BootstrapTable
                         parentClassName="table"
                         headerClasses="tableHeader"
                         bodyClasses="tableBody"
                         rowClasses="tableRow"
                         keyField="id"
-                        data={this.props.data.map((e, IX) => {
-                            if (e.type === "listing") {
-                                return { id: IX, gameid: e.gameID, name: e.name, update: e.date };
-                            }
-                            if (e.type === "metrics") {
-                                return {
-                                    id: IX,
-                                    gameid: e.gameID,
-                                    name: e.name,
-                                    update: e.date,
-                                    minpricenq: e.minPriceNQ,
-                                    maxpricenq: e.maxPriceNQ,
-                                    minpricehq: e.minPriceHQ,
-                                    maxpricehq: e.maxPriceHQ,
-                                    amountNQ: e.amountNQListings,
-                                    amountHQ: e.amountHQListing,
-                                };
-                            }
-                            if (e.type === "response") {
-                                return {
-                                    id: IX,
-                                    gameid: e.gameID,
-                                    name: e.name,
-                                    update: e.date,
-                                    minpricenq: e.minPriceNQ,
-                                    maxpricenq: e.maxPriceNQ,
-                                    minpricehq: e.minPriceHQ,
-                                    maxpricehq: e.maxPriceHQ,
-                                    amountNQ: e.amountNQListings,
-                                    amountHQ: e.amountHQListing,
-                                };
-                            }
-                            if (e.type === "order") {
-                                return {
-                                    id: IX,
-                                    priceperunit: e.pricePerUnit,
-                                    quantity: e.quantity,
-                                    total: e.total,
-                                    hq: e.hq,
-                                    retainername: e.retainerName,
-                                };
-                            }
-                            if (e.type === "retainer") {
-                                return { id: IX, name: e.name, type: e.type };
-                            }
-                        })}
+                        data={this.determinData()}
                         columns={this.props.columns}
                         filter={filterFactory()}
-                        pagination={paginationFactory({})}
+                        pagination={paginationFactory({
+                            showTotal: true,
+                            sizePerPage: 25,
+                            sizePerPageList: [
+                                {
+                                    text: "5",
+                                    value: 5,
+                                },
+                                {
+                                    text: "10",
+                                    value: 10,
+                                },
+                                {
+                                    text: "25",
+                                    value: 25,
+                                },
+                                {
+                                    text: "50",
+                                    value: 50,
+                                },
+                                {
+                                    text: "100",
+                                    value: 100,
+                                },
+                            ],
+                            sizePerPageRenderer: ({ options, onSizePerPageChange }) => (
+                                <div className="btn-group" role="group">
+                                    {options.map((option, ix) => {
+                                        return (
+                                            <button
+                                                key={(option.text, ix)}
+                                                type="button"
+                                                onClick={(ev: React.MouseEvent<HTMLButtonElement>) => {
+                                                    onSizePerPageChange(
+                                                        Number.parseInt(option.text),
+                                                        Number.parseInt(ev.currentTarget.innerText)
+                                                    );
+                                                }}
+                                            >
+                                                {option.text}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            ),
+                        })}
                     />
                 </Container>
 

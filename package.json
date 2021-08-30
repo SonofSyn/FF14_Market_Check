@@ -93,6 +93,7 @@
         "@types/electron": "^1.6.10",
         "bootstrap": "^5.0.2",
         "electron-squirrel-startup": "^1.0.0",
+        "ff14marketfilter": "file:packages/ff14marketfilter-1.0.0.tgz",
         "pagination": "^0.4.6",
         "path-browserify": "^1.0.1",
         "rc-pagination": "^3.1.9",

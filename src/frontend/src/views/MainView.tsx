@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Container } from "react-bootstrap";
+import { Button, Col, Container } from "react-bootstrap";
 import StandardTable from "../components/tables/StandardTable";
 interface Props {}
 interface State {}
@@ -30,6 +30,9 @@ class MainView extends React.Component<Props, State> {
                     </Container>
                     <Container className="main">
                         <h1>Data Update</h1>
+                        <Button>Refresh Data</Button>
+                        <Button>Analyse Data</Button>
+                        <Button>Update Data</Button>
                     </Container>
                 </Col>
             </>
