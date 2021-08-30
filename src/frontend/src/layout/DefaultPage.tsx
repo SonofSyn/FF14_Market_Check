@@ -31,7 +31,6 @@ class DefaultPage extends React.Component<Props, State> {
     }
 
     static createState(props: Props): State {
-        console.log(props.listings);
         return {
             id: props.id,
             currentView: "MainView",
@@ -45,6 +44,7 @@ class DefaultPage extends React.Component<Props, State> {
 
     static getDerivedStateFromProps(props: Props, state: State): State | null {
         if (
+            props.id === state.id &&
             props.metrics.length === state.metrics.length &&
             props.retainer.length === state.retainer.length &&
             props.listings.length === state.listings.length

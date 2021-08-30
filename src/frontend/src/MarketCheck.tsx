@@ -7,7 +7,7 @@ import { eItemMetrics, eListingData, eRetainer, ItemMetrics, ListingData, Retain
 const { ipcRenderer } = window.require("electron");
 // import electron from "electron";
 // import { ipcRenderer } from "electron";
-interface Props {}
+interface Props { }
 interface State {
     id: string;
     metrics: ItemMetrics[];
@@ -31,10 +31,10 @@ export class MarketCheck extends React.Component<Props, State> {
         return { id: " ", metrics: [], listings: [], retainer: [] };
     }
 
-    componentDidMount() {
-        console.log("test");
-        ipcRenderer.send("start-up", "ready");
+    private updateID = Date.now();
 
+    componentDidMount() {
+        ipcRenderer.send("start-up", "ready");
         ipcRenderer.on("retainer", (event: any, arg: any) => {
             let backendRetainer: eRetainer[] = JSON.parse(arg);
             let retainer: Retainer[] = backendRetainer.map((data, ix) => {
@@ -56,7 +56,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     }),
                 };
             });
-            this.setState({ retainer });
+            this.setState({ retainer, id: (this.updateID + 1) + "" });
         });
         ipcRenderer.on("listings", (event: any, arg: any) => {
             let backendListing: eListingData[] = JSON.parse(arg);
@@ -80,7 +80,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     type: "listing",
                 };
             });
-            this.setState({ listings });
+            this.setState({ listings,id: (this.updateID + 1) + "" });
         });
         ipcRenderer.on("metrics", (event: any, arg: any) => {
             let backendMetrics: eItemMetrics[] = JSON.parse(arg);
@@ -99,7 +99,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     minPriceNQ: data.minPriceNQ,
                 };
             });
-            this.setState({ metrics });
+            this.setState({ metrics,id: (this.updateID + 1) + "" });
         });
     }
 

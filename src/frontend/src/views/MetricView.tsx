@@ -11,7 +11,6 @@ class MetricView extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = MetricView.createState(props);
-        console.log(this.props.data);
     }
 
     static createState(props: Props): State {

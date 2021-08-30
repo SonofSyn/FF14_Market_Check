@@ -36,45 +36,28 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
     createWindow();
-    let updateID = "" + Date.now();
 
-    let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
-    let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");
-    let retainersBuffer = await asyncReadFile("./data/processed/retainers.json");
+    ipcMain.on("start-up", async (event: any, arg: string) => {
 
-    ipcMain.on("start-up", (event: any, arg: string) => {
+        let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
+        let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");
+        let retainersBuffer = await asyncReadFile("./data/processed/retainers.json");
         event.reply("metrics", metricsBuffer.toString());
         event.reply("listings", listingsBuffer.toString());
         event.reply("retainer", retainersBuffer.toString());
     });
-});
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on("update", async () => {
-    let marketItemData = await retrievServerData();
-    let listingData = await analyseListings(marketItemData);
-    let metricsData = await analyseMetrics(marketItemData);
-    let retainerData = await analyseRetainers(retainersK, listingData);
-    ipcMain.on("load", (event: any, arg: string) => {
+    ipcMain.on("load", async (event: any, arg: string) => {
+        await asyncWriteFile("./data/check.json", "test")
+        let marketItemData = await retrievServerData();
+        let listingData = await analyseListings(marketItemData);
+        let metricsData = await analyseMetrics(marketItemData);
+        let retainerData = await analyseRetainers(retainersK, listingData);
         event.reply("metrics", JSON.stringify(metricsData));
         event.reply("listings", JSON.stringify(listingData));
         event.reply("retainer", JSON.stringify(retainerData));
     });
 });
 
-app.on("recalc", async () => {
-    let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
-    let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");
-    let retainersBuffer = await asyncReadFile("./data/processed/retainers.json");
-
-    ipcMain.on("reload", (event: any, arg: string) => {
-        event.reply("metrics", metricsBuffer.toString());
-        event.reply("listings", listingsBuffer.toString());
-        event.reply("retainer", retainersBuffer.toString());
-    });
-});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits

@@ -1,3 +1,4 @@
+const { ipcRenderer } = window.require("electron");
 import React from "react";
 import { Button, Col, Container } from "react-bootstrap";
 import StandardTable from "../components/tables/StandardTable";
@@ -18,6 +19,11 @@ class MainView extends React.Component<Props, State> {
     //     return MainView.createState(props, state.showPopup)
     // }
 
+
+    refreshData(){
+        ipcRenderer.send("load", "ready");
+    }
+
     render() {
         return (
             <>
@@ -30,9 +36,7 @@ class MainView extends React.Component<Props, State> {
                     </Container>
                     <Container className="main">
                         <h1>Data Update</h1>
-                        <Button>Refresh Data</Button>
-                        <Button>Analyse Data</Button>
-                        <Button>Update Data</Button>
+                        <Button onClick={this.refreshData}>Refresh Data</Button>
                     </Container>
                 </Col>
             </>

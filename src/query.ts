@@ -10,24 +10,25 @@ import {
 } from "ff14marketfilter";
 
 export let retrievServerData = async () => {
+    await asyncWriteFile("./data/etstest.json", JSON.stringify("marketItemData"));
     let marketItemData = await collectItemData("Shiva", MarketableItemIDsReduced, 2000, 1);
-    await asyncWriteFile("./export/response.json", JSON.stringify(marketItemData));
+    await asyncWriteFile("./data/response.json", JSON.stringify(marketItemData));
     return marketItemData;
 };
 export let analyseRetainers = async (retainer: string[], listingItemData: ListingData[]) => {
     let retainerData = await checkRetainers(retainer, listingItemData);
-    await asyncWriteFile("./export/processed/retainers.json", JSON.stringify(retainerData));
+    await asyncWriteFile("./data/processed/retainers.json", JSON.stringify(retainerData));
     return retainerData;
 };
 
 export let analyseMetrics = async (marketItemData: ResponseData[][]) => {
     let metricData = await selectItemMetrics(marketItemData, 80000);
-    await asyncWriteFile("./export/compiledData/metrics.json", JSON.stringify(metricData));
+    await asyncWriteFile("./data/compiledData/metrics.json", JSON.stringify(metricData));
     return metricData;
 };
 
 export let analyseListings = async (marketItemData: ResponseData[][]) => {
     let listingData = await selectListingData(marketItemData);
-    await asyncWriteFile("./export/compiledData/listings.json", JSON.stringify(listingData));
+    await asyncWriteFile("./data/compiledData/listings.json", JSON.stringify(listingData));
     return listingData;
 };
