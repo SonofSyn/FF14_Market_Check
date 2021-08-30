@@ -3,16 +3,7 @@ import * as ReactDOM from "react-dom";
 import DefaultPage from "./layout/DefaultPage";
 import "./scss/main.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-    eItemMetrics,
-    eListingData,
-    eResponseData,
-    eRetainer,
-    ItemMetrics,
-    ListingData,
-    ResponseData,
-    Retainer,
-} from "../frontendInterface";
+import { eItemMetrics, eListingData, eRetainer, ItemMetrics, ListingData, Retainer } from "../frontendInterface";
 const { ipcRenderer } = window.require("electron");
 // import electron from "electron";
 // import { ipcRenderer } from "electron";
@@ -21,7 +12,6 @@ interface State {
     id: string;
     metrics: ItemMetrics[];
     retainer: Retainer[];
-    filtered: ResponseData[];
     listings: ListingData[];
 }
 
@@ -38,7 +28,7 @@ export class MarketCheck extends React.Component<Props, State> {
         this.state = MarketCheck.createState(props);
     }
     static createState(props: Props): State {
-        return { id: " ", metrics: [], filtered: [], listings: [], retainer: [] };
+        return { id: " ", metrics: [], listings: [], retainer: [] };
     }
 
     componentDidMount() {
@@ -67,36 +57,6 @@ export class MarketCheck extends React.Component<Props, State> {
                 };
             });
             this.setState({ retainer });
-        });
-        ipcRenderer.on("filtered", (event: any, arg: any) => {
-            let backendFiltered: eResponseData[] = JSON.parse(arg);
-            let filtered: ResponseData[] = backendFiltered.map((data, ix) => {
-                return {
-                    id: ix.toString(),
-                    gameID: data.id,
-                    date: data.date.slice(0, 15),
-                    name: data.name,
-                    type: "response",
-                    amountHQListing: data.amountHQListing,
-                    amountNQListings: data.amountNQListings,
-                    maxPriceHQ: data.maxPriceHQ,
-                    maxPriceNQ: data.maxPriceNQ,
-                    minPriceHQ: data.minPriceHQ,
-                    minPriceNQ: data.minPriceNQ,
-                    orders: data.orders.map((data, ix) => {
-                        return {
-                            id: ix.toString(),
-                            type: "order",
-                            pricePerUnit: data.pricePerUnit,
-                            total: data.total,
-                            quantity: data.quantity,
-                            hq: data.hq,
-                            retainerName: data.retainerName,
-                        };
-                    }),
-                };
-            });
-            this.setState({ filtered });
         });
         ipcRenderer.on("listings", (event: any, arg: any) => {
             let backendListing: eListingData[] = JSON.parse(arg);
@@ -150,7 +110,6 @@ export class MarketCheck extends React.Component<Props, State> {
                     id={this.state.id}
                     metrics={this.state.metrics}
                     listings={this.state.listings}
-                    filtered={this.state.filtered}
                     retainer={this.state.retainer}
                 />
             </>

@@ -46,20 +46,6 @@ export interface ItemMetrics extends DataElement {
     amountHQListing: number;
 }
 
-export interface ResponseData extends DataElement {
-    type: "response";
-    gameID: string;
-    date: string;
-    name: string;
-    minPriceNQ: number;
-    maxPriceNQ: number;
-    minPriceHQ: number;
-    maxPriceHQ: number;
-    amountNQListings: number;
-    amountHQListing: number;
-    orders: Order[];
-}
-
 export interface Retainer extends DataElement {
     type: "retainer";
     name: string;
@@ -71,8 +57,8 @@ export interface DataElement {
     type: DataElementType;
     id: string;
 }
-export type DataElementType = "metrics" | "retainer" | "listing" | "order" | "response";
-export type TableData = ItemMetrics[] | Retainer[] | ItemMetrics[] | ListingData[] | Order[] | ResponseData[];
+export type DataElementType = "metrics" | "retainer" | "listing" | "order";
+export type TableData = ItemMetrics[] | Retainer[] | ItemMetrics[] | ListingData[] | Order[];
 
 export interface eOrder {
     lastReviewTime: string;
@@ -100,19 +86,6 @@ export interface eItemMetrics {
     maxPriceHQ: number;
     amountNQListings: number;
     amountHQListing: number;
-}
-
-export interface eResponseData {
-    id: string;
-    date: string;
-    name: string;
-    minPriceNQ: number;
-    maxPriceNQ: number;
-    minPriceHQ: number;
-    maxPriceHQ: number;
-    amountNQListings: number;
-    amountHQListing: number;
-    orders: Order[];
 }
 
 export interface eRetainer {

@@ -1,20 +1,18 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { LISTINGSHEADER, RETAINERHEADER, DATAHEADER, ORDERSHEADER } from "../../frontendConst";
-import { LISTINGS, METRICS, RETAINERS, FILTERED } from "../../stubs";
-import { ItemMetrics, Links, ListingData, ResponseData, Retainer, Views } from "../../frontendInterface";
-import FilteredView from "../views/FilteredView";
+import { LISTINGSHEADER, DATAHEADER, ORDERSHEADER } from "../../frontendConst";
+import { ItemMetrics, Links, ListingData, Retainer, Views } from "../../frontendInterface";
 import ListingView from "../views/ListingView";
 import MainView from "../views/MainView";
 import MetricView from "../views/MetricView";
 import RetainerView from "../views/RetainerView";
+import Filterbar from "./Filterbar";
 import Navigation from "./Navigation";
 import Searchbar from "./Searchbar";
 interface Props {
     id: string;
     metrics: ItemMetrics[];
     retainer: Retainer[];
-    filtered: ResponseData[];
     listings: ListingData[];
 }
 interface State {
@@ -23,8 +21,8 @@ interface State {
     currentSearch: string;
     metrics: ItemMetrics[];
     retainer: Retainer[];
-    filtered: ResponseData[];
     listings: ListingData[];
+    priceFilter: number;
 }
 class DefaultPage extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -40,15 +38,14 @@ class DefaultPage extends React.Component<Props, State> {
             currentSearch: "",
             metrics: props.metrics,
             retainer: props.retainer,
-            filtered: props.filtered,
             listings: props.listings,
+            priceFilter: 50000,
         };
     }
 
     static getDerivedStateFromProps(props: Props, state: State): State | null {
         if (
             props.metrics.length === state.metrics.length &&
-            props.filtered.length === state.filtered.length &&
             props.retainer.length === state.retainer.length &&
             props.listings.length === state.listings.length
         )
@@ -56,7 +53,11 @@ class DefaultPage extends React.Component<Props, State> {
         return DefaultPage.createState(props);
     }
 
-    private viewNames: string[] = ["MainView", "FilteredView", "ListingView", "MetricView", "RetainerView"];
+    private viewNames: string[] = ["MainView", "ListingView", "MetricView", "RetainerView"];
+
+    private setPriceFilter(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({ priceFilter: e.currentTarget.valueAsNumber });
+    }
 
     /**
      *
@@ -80,24 +81,23 @@ class DefaultPage extends React.Component<Props, State> {
                 name: this.viewNames[0],
             },
             {
-                component: <FilteredView columns={DATAHEADER} ordercolumns={ORDERSHEADER} data={this.state.filtered} />,
+                component: (
+                    <ListingView
+                        columns={LISTINGSHEADER}
+                        ordercolumns={ORDERSHEADER}
+                        data={this.state.listings}
+                        priceFilter={this.state.priceFilter}
+                    />
+                ),
                 name: this.viewNames[1],
             },
             {
-                component: (
-                    <ListingView columns={LISTINGSHEADER} ordercolumns={ORDERSHEADER} data={this.state.listings} />
-                ),
+                component: <MetricView columns={DATAHEADER} data={this.state.metrics} />,
                 name: this.viewNames[2],
             },
             {
-                component: <MetricView columns={DATAHEADER} data={this.state.metrics} />,
+                component: <RetainerView ordercolumns={ORDERSHEADER} data={this.state.retainer} />,
                 name: this.viewNames[3],
-            },
-            {
-                component: (
-                    <RetainerView columns={RETAINERHEADER} ordercolumns={ORDERSHEADER} data={this.state.retainer} />
-                ),
-                name: this.viewNames[4],
             },
         ];
         let back: Views = {};
@@ -122,6 +122,19 @@ class DefaultPage extends React.Component<Props, State> {
         );
     }
 
+    createFilterBar() {
+        return (
+            <>
+                <Container className={"filterarea"}>
+                    <Filterbar
+                        priceFilter={this.state.priceFilter}
+                        setAmountFilter={this.setPriceFilter.bind(this)}
+                    ></Filterbar>
+                </Container>
+            </>
+        );
+    }
+
     setCurrentSearch(search: string) {
         this.setState({ currentSearch: search });
     }
@@ -134,6 +147,7 @@ class DefaultPage extends React.Component<Props, State> {
                         <Navigation setView={this.links} />
                     </Container>
                     {this.createSearchBar()}
+                    {this.createFilterBar()}
                     <Container className={"Infobar"}></Container>
                     <Container className={"contentarea"}>{this.createViews()[this.state.currentView]()}</Container>
                 </Container>
