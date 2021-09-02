@@ -37,6 +37,8 @@ class RetainerView extends React.Component<Props, State> {
                                     data={e.undercuts}
                                     header={
                                         <Row className="table-info">
+                                            <Col>{e.imgPath}</Col>
+                                            <Col>{e.crafter}</Col>
                                             <Col>{e.name}</Col>
                                             <Col>{e.retainerOrder.pricePerUnit}</Col>
                                             <Col>{e.retainerOrder.total}</Col>

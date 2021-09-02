@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import { LISTINGSHEADER, DATAHEADER, ORDERSHEADER } from "../../frontendConst";
+import { DATAHEADER, ORDERSHEADER } from "../../frontendConst";
 import { ItemMetrics, Links, ListingData, Retainer, Views } from "../../frontendInterface";
 import ListingView from "../views/ListingView";
 import MainView from "../views/MainView";
@@ -86,7 +86,6 @@ class DefaultPage extends React.Component<Props, State> {
             {
                 component: (
                     <ListingView
-                        columns={LISTINGSHEADER}
                         ordercolumns={ORDERSHEADER}
                         data={this.state.listings}
                         priceFilter={this.state.priceFilter}
@@ -149,7 +148,7 @@ class DefaultPage extends React.Component<Props, State> {
                     <Container className={"navarea"}>
                         <Navigation setView={this.links} />
                     </Container>
-                    {this.createSearchBar()}
+                    {this.state.currentView==="ListingView"?this.createSearchBar():null}
                     {this.createFilterBar()}
                     <Container className={"Infobar"}></Container>
                     <Container className={"contentarea"}>{this.createViews()[this.state.currentView]()}</Container>

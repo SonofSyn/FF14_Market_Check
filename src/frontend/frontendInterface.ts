@@ -27,6 +27,8 @@ export interface Order extends DataElement {
 
 export interface ListingData extends DataElement {
     type: "listing";
+    imgPath: JSX.Element;
+    crafter: JSX.Element;
     gameID: string;
     date: string;
     name: string;
@@ -35,9 +37,11 @@ export interface ListingData extends DataElement {
 
 export interface ItemMetrics extends DataElement {
     type: "metrics";
+    imgPath: JSX.Element;
     gameID: string;
     date: string;
     name: string;
+    crafter: JSX.Element;
     minPriceNQ: number;
     maxPriceNQ: number;
     minPriceHQ: number;
@@ -49,6 +53,8 @@ export interface ItemMetrics extends DataElement {
 export interface Retainer extends DataElement {
     type: "retainer";
     name: string;
+    imgPath: JSX.Element;
+    crafter: JSX.Element;
     retainerOrder: Order;
     undercuts: Order[];
 }
@@ -60,7 +66,7 @@ export interface DataElement {
 export type DataElementType = "metrics" | "retainer" | "listing" | "order";
 export type TableData = ItemMetrics[] | Retainer[] | ItemMetrics[] | ListingData[] | Order[];
 
-export interface eOrder {
+export interface dbOrder {
     lastReviewTime: string;
     pricePerUnit: number;
     total: number;
@@ -69,14 +75,14 @@ export interface eOrder {
     retainerName: string;
 }
 
-export interface eListingData {
+export interface dbListingData {
     id: string;
     date: string;
     name: string;
     orders: Order[];
 }
 
-export interface eItemMetrics {
+export interface dbItemMetrics {
     id: string;
     date: string;
     name: string;
@@ -88,7 +94,7 @@ export interface eItemMetrics {
     amountHQListing: number;
 }
 
-export interface eRetainer {
+export interface dbRetainer {
     name: string;
     retainerOrder: Order;
     undercuts: Order[];

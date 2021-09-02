@@ -3,7 +3,9 @@ import * as ReactDOM from "react-dom";
 import DefaultPage from "./layout/DefaultPage";
 import "./scss/main.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { eItemMetrics, eListingData, eRetainer, ItemMetrics, ListingData, Retainer } from "../frontendInterface";
+import { dbItemMetrics, dbListingData, dbRetainer, ItemMetrics, ListingData, Retainer } from "../frontendInterface";
+import placeHolder from "./../../../assets/placeholder.png";
+import crafter from "./../../../assets/crafter/goldsmith.png";
 const { ipcRenderer } = window.require("electron");
 // import electron from "electron";
 // import { ipcRenderer } from "electron";
@@ -40,12 +42,14 @@ export class MarketCheck extends React.Component<Props, State> {
     componentDidMount() {
         ipcRenderer.send("start-up", "ready");
         ipcRenderer.on("retainer", (event: any, arg: any) => {
-            let backendRetainer: eRetainer[] = JSON.parse(arg);
+            let backendRetainer: dbRetainer[] = JSON.parse(arg);
             let retainer: Retainer[] = backendRetainer.map((data, ix) => {
                 return {
                     id: ix.toString(),
                     type: "retainer",
                     name: data.name,
+                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
+                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
                     retainerOrder: data.retainerOrder,
                     undercuts: data.undercuts.map((data, ix) => {
                         return {
@@ -63,13 +67,15 @@ export class MarketCheck extends React.Component<Props, State> {
             this.setState({ retainer, id: this.updateID + 1 + "", isLoading: false });
         });
         ipcRenderer.on("listings", (event: any, arg: any) => {
-            let backendListing: eListingData[] = JSON.parse(arg);
+            let backendListing: dbListingData[] = JSON.parse(arg);
             let listings: ListingData[] = backendListing.map((data, ix) => {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
                     date: data.date.slice(0, 15),
                     name: data.name,
+                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
+                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
                     orders: data.orders.map((data, ix) => {
                         return {
                             id: ix.toString(),
@@ -87,13 +93,15 @@ export class MarketCheck extends React.Component<Props, State> {
             this.setState({ listings, id: this.updateID + 1 + "", isLoading: false });
         });
         ipcRenderer.on("metrics", (event: any, arg: any) => {
-            let backendMetrics: eItemMetrics[] = JSON.parse(arg);
+            let backendMetrics: dbItemMetrics[] = JSON.parse(arg);
             let metrics: ItemMetrics[] = backendMetrics.map((data, ix) => {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
                     date: data.date.slice(0, 15),
                     name: data.name,
+                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
+                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
                     type: "metrics",
                     amountHQListing: data.amountHQListing,
                     amountNQListings: data.amountNQListings,

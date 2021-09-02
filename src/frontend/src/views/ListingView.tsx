@@ -3,7 +3,6 @@ import { Col, Container, Row, Pagination } from "react-bootstrap";
 import { TableHeader, ListingData } from "../../frontendInterface";
 import StandardTable from "../components/tables/StandardTable";
 interface Props {
-    columns: TableHeader[];
     ordercolumns: TableHeader[];
     data: ListingData[];
     priceFilter: number;
@@ -42,10 +41,12 @@ class ListingView extends React.Component<Props, State> {
                                     data={e.orders}
                                     header={
                                         <Row className="table-info" key={e + "" + eIx}>
-                                            <Col key={e + "" + eIx}>{e.name}</Col>
+                                            <Col key={e + "" + eIx}>{e.imgPath}</Col>
+                                            <Col key={e + "" + eIx}>{e.crafter}</Col>
+                                            <Col key={e + "0" + eIx}>{e.name}</Col>
                                             {/* <Col key={e + "" + eIx}>{e.id}</Col>
                                                     <Col key={e + "" + eIx}>{e.gameID}</Col> */}
-                                            <Col key={e + "" + eIx}>{e.date}</Col>
+                                            <Col key={e + "1" + eIx}>{e.date}</Col>
                                         </Row>
                                     }
                                 ></StandardTable>

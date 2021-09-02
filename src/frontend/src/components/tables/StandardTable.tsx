@@ -15,13 +15,15 @@ class StandardTable extends React.Component<Props> {
     determinData() {
         return this.props.data.map((e, IX) => {
             if (e.type === "listing") {
-                return { id: IX, gameid: e.gameID, name: e.name, update: e.date };
+                return { id: IX, itemImg: e.imgPath, gameid: e.gameID, name: e.name, update: e.date };
             }
             if (e.type === "metrics") {
                 return {
                     id: IX,
+                    itemImg: e.imgPath,
                     gameid: e.gameID,
                     name: e.name,
+                    crafter: e.crafter,
                     update: e.date,
                     minpricenq: e.minPriceNQ,
                     maxpricenq: e.maxPriceNQ,
