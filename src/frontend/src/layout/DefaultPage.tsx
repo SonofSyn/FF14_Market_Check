@@ -7,6 +7,7 @@ import MainView from "../views/MainView";
 import MetricView from "../views/MetricView";
 import RetainerView from "../views/RetainerView";
 import Filterbar from "./Filterbar";
+import Footer from "./Footer";
 import Navigation from "./Navigation";
 import Searchbar from "./Searchbar";
 interface Props {
@@ -14,6 +15,8 @@ interface Props {
     metrics: ItemMetrics[];
     retainer: Retainer[];
     listings: ListingData[];
+    isLoading: boolean;
+    setLoading: () => void;
 }
 interface State {
     id: string;
@@ -77,7 +80,7 @@ class DefaultPage extends React.Component<Props, State> {
     createViews() {
         let views = [
             {
-                component: <MainView />,
+                component: <MainView isLoading={this.props.isLoading} setLoading={this.props.setLoading} />,
                 name: this.viewNames[0],
             },
             {
@@ -150,6 +153,9 @@ class DefaultPage extends React.Component<Props, State> {
                     {this.createFilterBar()}
                     <Container className={"Infobar"}></Container>
                     <Container className={"contentarea"}>{this.createViews()[this.state.currentView]()}</Container>
+                    <Container className={"footer"}>
+                        <Footer isLoading={this.props.isLoading} />
+                    </Container>
                 </Container>
             </>
         );

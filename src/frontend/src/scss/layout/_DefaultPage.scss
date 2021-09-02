@@ -50,6 +50,14 @@ td {
     opacity: 0.85;
     padding-left: 1em;
 }
+.footer {
+    min-height: 5%;
+    width: inherit;
+    background-color: rgb(15, 55, 55);
+    opacity: 0.85;
+    padding-left: 1em;
+    margin-bottom: 1em;
+}
 .filterarea {
     min-height: 3em;
     width: inherit;
@@ -60,7 +68,7 @@ td {
     width: 85% !important;
 }
 .contentarea {
-    height: 85%;
+    height: 70%;
     width: inherit;
     background-color: rgb(45, 50, 65);
     overflow-y: auto;

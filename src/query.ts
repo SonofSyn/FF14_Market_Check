@@ -10,7 +10,6 @@ import {
 } from "ff14marketfilter";
 
 export let retrievServerData = async () => {
-    await asyncWriteFile("./data/etstest.json", JSON.stringify("marketItemData"));
     let marketItemData = await collectItemData("Shiva", MarketableItemIDsReduced, 2000, 1);
     await asyncWriteFile("./data/response.json", JSON.stringify(marketItemData));
     return marketItemData;

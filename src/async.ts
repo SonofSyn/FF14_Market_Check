@@ -31,3 +31,34 @@ export async function forEachAsync<A, B>(
     await Promise.all(workers);
     return back;
 }
+
+// Funktion um Wartezeit zwischen Googlesuchen zu setzen
+//
+
+/**
+ *
+ *
+ * @export      waitFor                            Funktion zum Einfügen von Wartezeiten zwischen Googleaufruf
+ * @param       {number} [ms=1000]                 Wartezeit zwischen Aufgreifen von neuen Daten
+ * @returns     {Promise<void>}
+ */
+export async function waitFor(ms: number = 1000): Promise<void> {
+    return new Promise((res) => {
+        setTimeout(res, ms);
+    });
+}
+
+// export async function asyncInterval(callback: () => Promise<boolean>, ms: number, triesLeft = 5) {
+//     return new Promise<void>((resolve, reject) => {
+//         const interval = setInterval(async () => {
+//             if (await callback()) {
+//                 resolve();
+//                 clearInterval(interval);
+//             } else if (triesLeft <= 1) {
+//                 reject();
+//                 clearInterval(interval);
+//             }
+//             triesLeft--;
+//         }, ms);
+//     });
+// }

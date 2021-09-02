@@ -7,12 +7,13 @@ import { eItemMetrics, eListingData, eRetainer, ItemMetrics, ListingData, Retain
 const { ipcRenderer } = window.require("electron");
 // import electron from "electron";
 // import { ipcRenderer } from "electron";
-interface Props { }
+interface Props {}
 interface State {
     id: string;
     metrics: ItemMetrics[];
     retainer: Retainer[];
     listings: ListingData[];
+    isLoading: boolean;
 }
 
 /**
@@ -28,10 +29,13 @@ export class MarketCheck extends React.Component<Props, State> {
         this.state = MarketCheck.createState(props);
     }
     static createState(props: Props): State {
-        return { id: " ", metrics: [], listings: [], retainer: [] };
+        return { id: " ", metrics: [], listings: [], retainer: [], isLoading: false };
     }
 
     private updateID = Date.now();
+    setLoading() {
+        this.setState({ isLoading: true });
+    }
 
     componentDidMount() {
         ipcRenderer.send("start-up", "ready");
@@ -56,7 +60,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     }),
                 };
             });
-            this.setState({ retainer, id: (this.updateID + 1) + "" });
+            this.setState({ retainer, id: this.updateID + 1 + "", isLoading: false });
         });
         ipcRenderer.on("listings", (event: any, arg: any) => {
             let backendListing: eListingData[] = JSON.parse(arg);
@@ -80,7 +84,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     type: "listing",
                 };
             });
-            this.setState({ listings,id: (this.updateID + 1) + "" });
+            this.setState({ listings, id: this.updateID + 1 + "", isLoading: false });
         });
         ipcRenderer.on("metrics", (event: any, arg: any) => {
             let backendMetrics: eItemMetrics[] = JSON.parse(arg);
@@ -99,7 +103,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     minPriceNQ: data.minPriceNQ,
                 };
             });
-            this.setState({ metrics,id: (this.updateID + 1) + "" });
+            this.setState({ metrics, id: this.updateID + 1 + "", isLoading: false });
         });
     }
 
@@ -111,6 +115,8 @@ export class MarketCheck extends React.Component<Props, State> {
                     metrics={this.state.metrics}
                     listings={this.state.listings}
                     retainer={this.state.retainer}
+                    isLoading={this.state.isLoading}
+                    setLoading={this.setLoading.bind(this)}
                 />
             </>
         );
