@@ -1,6 +1,5 @@
 export type Links = { [actions: string]: (input?: string) => void };
 export type Views = { [name: string]: () => JSX.Element };
-
 export interface TableHeader {
     dataField: string;
     text: string;
@@ -27,7 +26,7 @@ export interface Order extends DataElement {
 
 export interface ListingData extends DataElement {
     type: "listing";
-    imgPath: JSX.Element;
+    itemLevel: number;
     crafter: JSX.Element;
     gameID: string;
     date: string;
@@ -37,7 +36,8 @@ export interface ListingData extends DataElement {
 
 export interface ItemMetrics extends DataElement {
     type: "metrics";
-    imgPath: JSX.Element;
+    image: JSX.Element;
+    itemLevel: number;
     gameID: string;
     date: string;
     name: string;
@@ -53,7 +53,7 @@ export interface ItemMetrics extends DataElement {
 export interface Retainer extends DataElement {
     type: "retainer";
     name: string;
-    imgPath: JSX.Element;
+    itemLevel: number;
     crafter: JSX.Element;
     retainerOrder: Order;
     undercuts: Order[];
@@ -79,6 +79,8 @@ export interface dbListingData {
     id: string;
     date: string;
     name: string;
+    crafter: string;
+    itemLevel: number;
     orders: Order[];
 }
 
@@ -86,6 +88,8 @@ export interface dbItemMetrics {
     id: string;
     date: string;
     name: string;
+    crafter: string;
+    itemLevel: number;
     minPriceNQ: number;
     maxPriceNQ: number;
     minPriceHQ: number;
@@ -96,6 +100,8 @@ export interface dbItemMetrics {
 
 export interface dbRetainer {
     name: string;
+    crafter: string;
+    itemLevel: number;
     retainerOrder: Order;
     undercuts: Order[];
 }

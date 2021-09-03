@@ -2,6 +2,7 @@ import React from "react";
 import StandardTable from "../components/tables/StandardTable";
 import { TableHeader, Retainer } from "../../frontendInterface";
 import { Col, Container, Row } from "react-bootstrap";
+import placeHolder from "./../../../../assets/placeholder.png";
 interface Props {
     ordercolumns: TableHeader[];
     data: Retainer[];
@@ -37,13 +38,20 @@ class RetainerView extends React.Component<Props, State> {
                                     data={e.undercuts}
                                     header={
                                         <Row className="table-info">
-                                            <Col>{e.imgPath}</Col>
-                                            <Col>{e.crafter}</Col>
+                                            <Col>
+                                                {/* <img src={placeHolder} style={{ width: "50px", height: "50px" }} /> */}
+                                                <img
+                                                    src={require(`./../../../../assets/images/${e.name}.png`).default}
+                                                    style={{ width: "50px", height: "50px" }}
+                                                />
+                                            </Col>
                                             <Col>{e.name}</Col>
-                                            <Col>{e.retainerOrder.pricePerUnit}</Col>
-                                            <Col>{e.retainerOrder.total}</Col>
-                                            <Col>{e.retainerOrder.quantity}</Col>
-                                            <Col>{e.retainerOrder.hq}</Col>
+                                            <Col>{e.crafter}</Col>
+                                            <Col>{"ItemLevel: " + e.itemLevel}</Col>
+                                            <Col>{"Gesamt: " + e.retainerOrder.total}</Col>
+                                            <Col>{"Menge: " + e.retainerOrder.quantity}</Col>
+                                            <Col>{"Einzelpreis: " + e.retainerOrder.pricePerUnit}</Col>
+                                            <Col>{"Qulität: " + e.retainerOrder.hq ? "HQ" : "NQ"}</Col>
                                         </Row>
                                     }
                                 ></StandardTable>

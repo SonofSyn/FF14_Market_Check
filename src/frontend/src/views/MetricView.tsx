@@ -1,6 +1,7 @@
 import React from "react";
 import StandardTable from "../components/tables/StandardTable";
 import { TableHeader, ItemMetrics } from "../../frontendInterface";
+import placeHolder from "./../../../../assets/placeholder.png";
 import { Container } from "react-bootstrap";
 interface Props {
     columns: TableHeader[];
@@ -16,11 +17,33 @@ class MetricView extends React.Component<Props, State> {
     static createState(props: Props): State {
         return {};
     }
-
-    // static getDerivedStateFromProps(props: Props, state: State): (State | null) {
-    //     if (props.dummy !== state.dummy) return null
-    //     return MetricView.createState(props, state.showPopup)
-    // }
+    buildData(): ItemMetrics[] {
+        return this.props.data.map((e, eIx) => {
+            let item: ItemMetrics = {
+                id: eIx.toString(),
+                type: "metrics",
+                image: (
+                    <img
+                        src={require(`./../../../../assets/images/${e.name}.png`).default}
+                        style={{ width: "50px", height: "50px" }}
+                    />
+                    // <img src={placeHolder} style={{ width: "50px", height: "50px" }} />
+                ),
+                itemLevel: e.itemLevel,
+                gameID: e.gameID,
+                date: e.date,
+                name: e.name,
+                crafter: e.crafter,
+                minPriceNQ: e.minPriceNQ,
+                maxPriceNQ: e.maxPriceNQ,
+                minPriceHQ: e.minPriceHQ,
+                maxPriceHQ: e.maxPriceHQ,
+                amountNQListings: e.amountNQListings,
+                amountHQListing: e.amountHQListing,
+            };
+            return item;
+        });
+    }
 
     render() {
         return (
@@ -31,7 +54,7 @@ class MetricView extends React.Component<Props, State> {
                 <StandardTable
                     className="metric-view"
                     columns={this.props.columns}
-                    data={this.props.data}
+                    data={this.buildData()}
                 ></StandardTable>
             </>
         );

@@ -4,23 +4,24 @@ import { TableHeader } from "./frontendInterface";
 export const DATAHEADER: TableHeader[] = [
     { dataField: "id", text: "ID" },
     { dataField: "itemImg", text: "" },
-    { dataField: "gameid", text: "Game-ID", filter: textFilter({ placeholder: " " }) },
     { dataField: "name", text: "Name", filter: textFilter({ placeholder: " " }) },
     { dataField: "crafter", text: "Hersteller" },
-    { dataField: "update", text: "Letzter Update", filter: dateFilter({ placeholder: " " }) },
+    { dataField: "itemLevel", text: "Item Level" },
+    // { dataField: "gameid", text: "Game-ID", filter: textFilter({ placeholder: " " }) },
     { dataField: "minpricenq", text: "minPriceNQ", filter: numberFilter({ placeholder: " " }) },
     { dataField: "maxpricenq", text: "maxPriceNQ", filter: numberFilter({ placeholder: " " }) },
+    { dataField: "amountNQ", text: "Menge der NQ", filter: numberFilter({ placeholder: " " }) },
     { dataField: "minpricehq", text: "minPriceHQ", filter: numberFilter({ placeholder: " " }) },
     { dataField: "maxpricehq", text: "maxPriceHQ", filter: numberFilter({ placeholder: " " }) },
-    { dataField: "amountNQ", text: "Menge der NQ", filter: numberFilter({ placeholder: " " }) },
     { dataField: "amountHQ", text: "Menge der HQ", filter: numberFilter({ placeholder: " " }) },
+    { dataField: "update", text: "Letzter Update", filter: dateFilter({ placeholder: " " }) },
 ];
 
 export const ORDERSHEADER: TableHeader[] = [
     { dataField: "id", text: "ID" },
-    { dataField: "priceperunit", text: "Preis pro" },
-    { dataField: "quantity", text: "Menge" },
     { dataField: "total", text: "Komplett Preis" },
     { dataField: "hq", text: "HQ" },
+    { dataField: "quantity", text: "Menge" },
+    { dataField: "priceperunit", text: "Einzelpreis" },
     { dataField: "retainername", text: "Gehilfe" },
 ];

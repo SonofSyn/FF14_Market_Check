@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Container, Row, Pagination } from "react-bootstrap";
 import { TableHeader, ListingData } from "../../frontendInterface";
 import StandardTable from "../components/tables/StandardTable";
+import placeHolder from "./../../../../assets/placeholder.png";
 interface Props {
     ordercolumns: TableHeader[];
     data: ListingData[];
@@ -41,7 +42,14 @@ class ListingView extends React.Component<Props, State> {
                                     data={e.orders}
                                     header={
                                         <Row className="table-info" key={e + "" + eIx}>
-                                            <Col key={e + "" + eIx}>{e.imgPath}</Col>
+                                            <Col>
+                                                {/* <img src={placeHolder} style={{ width: "50px", height: "50px" }} /> */}
+                                                <img
+                                                    src={require(`./../../../../assets/images/${e.name}.png`).default}
+                                                    style={{ width: "50px", height: "50px" }}
+                                                />
+                                            </Col>
+                                            <Col key={e + "" + eIx}>{"ItemLevel: " + e.itemLevel}</Col>
                                             <Col key={e + "" + eIx}>{e.crafter}</Col>
                                             <Col key={e + "0" + eIx}>{e.name}</Col>
                                             {/* <Col key={e + "" + eIx}>{e.id}</Col>

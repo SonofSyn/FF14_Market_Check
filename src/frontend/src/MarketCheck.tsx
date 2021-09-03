@@ -4,8 +4,17 @@ import DefaultPage from "./layout/DefaultPage";
 import "./scss/main.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { dbItemMetrics, dbListingData, dbRetainer, ItemMetrics, ListingData, Retainer } from "../frontendInterface";
+import alchemist from "./../../../assets/crafter/alchemist.png";
+import armorer from "./../../../assets/crafter/armorer.png";
+import blacksmith from "./../../../assets/crafter/blacksmith.png";
+import carpenter from "./../../../assets/crafter/carpenter.png";
+import culinarian from "./../../../assets/crafter/culinarian.png";
+import goldsmith from "./../../../assets/crafter/goldsmith.png";
+import leatherworker from "./../../../assets/crafter/leatherworker.png";
+
+import weaver from "./../../../assets/crafter/weaver.png";
 import placeHolder from "./../../../assets/placeholder.png";
-import crafter from "./../../../assets/crafter/goldsmith.png";
+
 const { ipcRenderer } = window.require("electron");
 // import electron from "electron";
 // import { ipcRenderer } from "electron";
@@ -16,6 +25,7 @@ interface State {
     retainer: Retainer[];
     listings: ListingData[];
     isLoading: boolean;
+    // images: any;
 }
 
 /**
@@ -39,6 +49,38 @@ export class MarketCheck extends React.Component<Props, State> {
         this.setState({ isLoading: true });
     }
 
+    setCrafter(crafter: string) {
+        switch (crafter) {
+            case "alchemist": {
+                return alchemist;
+            }
+            case "armorer": {
+                return armorer;
+            }
+            case "blacksmith": {
+                return blacksmith;
+            }
+            case "carpenter": {
+                return carpenter;
+            }
+            case "culinarian": {
+                return culinarian;
+            }
+            case "goldsmith": {
+                return goldsmith;
+            }
+            case "leatherworker": {
+                return leatherworker;
+            }
+            case "weaver": {
+                return weaver;
+            }
+            default: {
+                return placeHolder;
+            }
+        }
+    }
+
     componentDidMount() {
         ipcRenderer.send("start-up", "ready");
         ipcRenderer.on("retainer", (event: any, arg: any) => {
@@ -48,8 +90,8 @@ export class MarketCheck extends React.Component<Props, State> {
                     id: ix.toString(),
                     type: "retainer",
                     name: data.name,
-                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
-                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
+                    itemLevel: data.itemLevel,
+                    crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
                     retainerOrder: data.retainerOrder,
                     undercuts: data.undercuts.map((data, ix) => {
                         return {
@@ -74,8 +116,8 @@ export class MarketCheck extends React.Component<Props, State> {
                     gameID: data.id,
                     date: data.date.slice(0, 15),
                     name: data.name,
-                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
-                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
+                    itemLevel: data.itemLevel,
+                    crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
                     orders: data.orders.map((data, ix) => {
                         return {
                             id: ix.toString(),
@@ -98,10 +140,11 @@ export class MarketCheck extends React.Component<Props, State> {
                 return {
                     id: ix.toString(),
                     gameID: data.id,
+                    image: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
+                    itemLevel: data.itemLevel,
                     date: data.date.slice(0, 15),
                     name: data.name,
-                    imgPath: <img src={placeHolder} style={{ width: "50px", height: "50px" }}></img>,
-                    crafter: <img src={crafter} style={{ width: "50px", height: "50px" }}></img>,
+                    crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
                     type: "metrics",
                     amountHQListing: data.amountHQListing,
                     amountNQListings: data.amountNQListings,

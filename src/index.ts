@@ -46,22 +46,22 @@ app.on("ready", async () => {
         event.reply("retainer", retainersBuffer.toString());
     });
     ipcMain.on("load", async (event: any, arg: string) => {
-        // let marketItemData = await retrievServerData();
-        // let listingData = await analyseListings(marketItemData);
-        // let metricsData = await analyseMetrics(marketItemData);
-        // let retainerData = await analyseRetainers(retainersK, listingData);
-        // event.reply("metrics", JSON.stringify(metricsData));
-        // event.reply("listings", JSON.stringify(listingData));
-        // event.reply("retainer", JSON.stringify(retainerData));
+        let marketItemData = await retrievServerData();
+        let listingData = await analyseListings(marketItemData);
+        let metricsData = await analyseMetrics(marketItemData);
+        let retainerData = await analyseRetainers(retainersK, listingData);
+        event.reply("metrics", JSON.stringify(metricsData));
+        event.reply("listings", JSON.stringify(listingData));
+        event.reply("retainer", JSON.stringify(retainerData));
 
         // For Tests
-        await waitFor(40000);
-        let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
-        let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");
-        let retainersBuffer = await asyncReadFile("./data/processed/retainers.json");
-        event.reply("metrics", metricsBuffer.toString());
-        event.reply("listings", listingsBuffer.toString());
-        event.reply("retainer", retainersBuffer.toString());
+        // await waitFor(40000);
+        // let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
+        // let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");
+        // let retainersBuffer = await asyncReadFile("./data/processed/retainers.json");
+        // event.reply("metrics", metricsBuffer.toString());
+        // event.reply("listings", listingsBuffer.toString());
+        // event.reply("retainer", retainersBuffer.toString());
     });
 });
 
