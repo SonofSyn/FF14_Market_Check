@@ -50,66 +50,80 @@ class StandardTable extends React.Component<Props> {
     }
 
     render() {
+        if (this.props.data.length === 0) return <></>;
         return (
             <>
                 <Container className={"tableContainer " + this.props.className}>
                     {this.props.header ? this.props.header : <></>}
-                    <BootstrapTable
-                        parentClassName="table"
-                        headerClasses="tableHeader"
-                        bodyClasses="tableBody"
-                        rowClasses="tableRow"
-                        keyField="id"
-                        data={this.determinData()}
-                        columns={this.props.columns}
-                        filter={filterFactory()}
-                        pagination={paginationFactory({
-                            showTotal: true,
-                            sizePerPage: 25,
-                            sizePerPageList: [
-                                {
-                                    text: "5",
-                                    value: 5,
-                                },
-                                {
-                                    text: "10",
-                                    value: 10,
-                                },
-                                {
-                                    text: "25",
-                                    value: 25,
-                                },
-                                {
-                                    text: "50",
-                                    value: 50,
-                                },
-                                {
-                                    text: "100",
-                                    value: 100,
-                                },
-                            ],
-                            sizePerPageRenderer: ({ options, onSizePerPageChange }) => (
-                                <div className="btn-group" role="group">
-                                    {options.map((option, ix) => {
-                                        return (
-                                            <button
-                                                key={(option.text, ix)}
-                                                type="button"
-                                                onClick={(ev: React.MouseEvent<HTMLButtonElement>) => {
-                                                    onSizePerPageChange(
-                                                        Number.parseInt(option.text),
-                                                        Number.parseInt(ev.currentTarget.innerText)
-                                                    );
-                                                }}
-                                            >
-                                                {option.text}
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-                            ),
-                        })}
-                    />
+                    {this.props.data[0].type === "metrics" ? (
+                        <BootstrapTable
+                            parentClassName="table"
+                            headerClasses="tableHeader"
+                            bodyClasses="tableBody"
+                            rowClasses="tableRow"
+                            keyField="id"
+                            data={this.determinData()}
+                            columns={this.props.columns}
+                            filter={filterFactory()}
+                            pagination={paginationFactory({
+                                showTotal: true,
+                                sizePerPage: 25,
+                                sizePerPageList: [
+                                    {
+                                        text: "5",
+                                        value: 5,
+                                    },
+                                    {
+                                        text: "10",
+                                        value: 10,
+                                    },
+                                    {
+                                        text: "25",
+                                        value: 25,
+                                    },
+                                    {
+                                        text: "50",
+                                        value: 50,
+                                    },
+                                    {
+                                        text: "100",
+                                        value: 100,
+                                    },
+                                ],
+                                sizePerPageRenderer: ({ options, onSizePerPageChange }) => (
+                                    <div className="btn-group" role="group">
+                                        {options.map((option, ix) => {
+                                            return (
+                                                <button
+                                                    key={(option.text, ix)}
+                                                    type="button"
+                                                    onClick={(ev: React.MouseEvent<HTMLButtonElement>) => {
+                                                        onSizePerPageChange(
+                                                            Number.parseInt(option.text),
+                                                            Number.parseInt(ev.currentTarget.innerText)
+                                                        );
+                                                    }}
+                                                >
+                                                    {option.text}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                ),
+                            })}
+                        />
+                    ) : (
+                        <BootstrapTable
+                            parentClassName="table"
+                            headerClasses="tableHeader"
+                            bodyClasses="tableBody"
+                            rowClasses="tableRow"
+                            keyField="id"
+                            data={this.determinData()}
+                            columns={this.props.columns}
+                            filter={filterFactory()}
+                        />
+                    )}
                 </Container>
 
                 <Container className="filler"></Container>

@@ -26,6 +26,8 @@ interface State {
     retainer: Retainer[];
     listings: ListingData[];
     priceFilter: number;
+    showSettings: boolean;
+    crafterFilter: string;
 }
 class DefaultPage extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -42,6 +44,8 @@ class DefaultPage extends React.Component<Props, State> {
             retainer: props.retainer,
             listings: props.listings,
             priceFilter: 50000,
+            crafterFilter: "",
+            showSettings: false,
         };
     }
 
@@ -60,6 +64,10 @@ class DefaultPage extends React.Component<Props, State> {
 
     private setPriceFilter(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({ priceFilter: e.currentTarget.valueAsNumber });
+    }
+
+    private setCrafterFilter(e: string) {
+        this.setState({ crafterFilter: e });
     }
 
     /**
@@ -89,12 +97,21 @@ class DefaultPage extends React.Component<Props, State> {
                         ordercolumns={ORDERSHEADER}
                         data={this.state.listings}
                         priceFilter={this.state.priceFilter}
+                        currentSearch={this.state.currentSearch}
+                        crafterFilter={this.state.crafterFilter}
                     />
                 ),
                 name: this.viewNames[1],
             },
             {
-                component: <MetricView columns={DATAHEADER} data={this.state.metrics} />,
+                component: (
+                    <MetricView
+                        columns={DATAHEADER}
+                        data={this.state.metrics}
+                        priceFilter={this.state.priceFilter}
+                        crafterFilter={this.state.crafterFilter}
+                    />
+                ),
                 name: this.viewNames[2],
             },
             {
@@ -130,7 +147,9 @@ class DefaultPage extends React.Component<Props, State> {
                 <Container className={"filterarea"}>
                     <Filterbar
                         priceFilter={this.state.priceFilter}
+                        crafterFilter={this.state.crafterFilter}
                         setAmountFilter={this.setPriceFilter.bind(this)}
+                        setCrafterFilter={this.setCrafterFilter.bind(this)}
                     ></Filterbar>
                 </Container>
             </>
@@ -141,16 +160,23 @@ class DefaultPage extends React.Component<Props, State> {
         this.setState({ currentSearch: search });
     }
 
+    toggleSettings() {
+        this.setState({ showSettings: !this.state.showSettings });
+    }
+
     render() {
         return (
             <>
                 <Container className={"maincontainer"}>
                     <Container className={"navarea"}>
-                        <Navigation setView={this.links} />
+                        <Navigation
+                            currentView={this.state.currentView}
+                            setView={this.links}
+                            toggleSettings={this.toggleSettings.bind(this)}
+                        />
                     </Container>
-                    {this.state.currentView==="ListingView"?this.createSearchBar():null}
-                    {this.createFilterBar()}
-                    <Container className={"Infobar"}></Container>
+                    {this.state.currentView === "ListingView" ? this.createSearchBar() : null}
+                    {this.state.showSettings ? this.createFilterBar() : null}
                     <Container className={"contentarea"}>{this.createViews()[this.state.currentView]()}</Container>
                     <Container className={"footer"}>
                         <Footer isLoading={this.props.isLoading} />

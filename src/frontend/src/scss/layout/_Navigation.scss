@@ -6,9 +6,10 @@
 }
 
 #nav_btn {
-    background-color: black !important;
-    border-color: black;
+    background-color: #666d81;
+    border-color: #666d81;
     margin: 0.25em;
+    box-shadow: none !important;
 }
 
 #nav_btn:hover {
@@ -43,4 +44,8 @@ tion-btn {
 .navigationBtn:hover {
     background-color: #fcc14e !important;
     color: white !important;
+}
+
+.highlighted {
+    background-color: #23262f !important;
 }

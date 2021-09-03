@@ -1,8 +1,8 @@
 const { ipcRenderer } = window.require("electron");
 import React from "react";
-import { Button, Col, Container } from "react-bootstrap";
+import { Button, ButtonGroup, Col, Container, Form } from "react-bootstrap";
 import LoadingBar from "../components/LoadingBar";
-
+import logo from "./../../../../assets/ff14Logo.png";
 interface Props {
     isLoading: boolean;
     setLoading: () => void;
@@ -36,18 +36,21 @@ class MainView extends React.Component<Props, State> {
     render() {
         return (
             <>
+                <Container className="fillContainer"></Container>
                 <Container className="main">
-                    <h1>Main</h1>
+                    <img src={logo}></img>
                 </Container>
                 <Container className="main">
-                    <h1>Front</h1>
+                    <h1>Wilkommen beim Final Fantasy Markt Preisprüfer</h1>
                 </Container>
                 <Container className="main">
-                    <h1>Data Update</h1>
-                    <Button onClick={this.refreshData.bind(this)} disabled={this.state.isLoading}>
-                        Refresh Data
-                    </Button>
-                    <h3>Letztes Update:{this.state.lastUpdated}</h3>
+                    <ButtonGroup>
+                        <h3> {"Letztes Update:  " + this.state.lastUpdated + "  "} </h3>
+                        <div style={{ width: "20px" }} />
+                        <Button onClick={this.refreshData.bind(this)} disabled={this.state.isLoading} id="nav_btn">
+                            Marktbrett Updaten
+                        </Button>
+                    </ButtonGroup>
                 </Container>
             </>
         );

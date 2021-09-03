@@ -28,6 +28,7 @@ export interface ListingData extends DataElement {
     type: "listing";
     itemLevel: number;
     crafter: JSX.Element;
+    crafterName: string;
     gameID: string;
     date: string;
     name: string;
@@ -42,6 +43,7 @@ export interface ItemMetrics extends DataElement {
     date: string;
     name: string;
     crafter: JSX.Element;
+    crafterName: string;
     minPriceNQ: number;
     maxPriceNQ: number;
     minPriceHQ: number;
@@ -55,6 +57,7 @@ export interface Retainer extends DataElement {
     name: string;
     itemLevel: number;
     crafter: JSX.Element;
+    crafterName: string;
     retainerOrder: Order;
     undercuts: Order[];
 }

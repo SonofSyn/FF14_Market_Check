@@ -21,7 +21,7 @@ export let analyseRetainers = async (retainer: string[], listingItemData: Listin
 };
 
 export let analyseMetrics = async (marketItemData: ResponseData[][]) => {
-    let metricData = await selectItemMetrics(marketItemData, 80000);
+    let metricData = await selectItemMetrics(marketItemData, 0);
     await asyncWriteFile("./data/compiledData/metrics.json", JSON.stringify(metricData));
     return metricData;
 };
