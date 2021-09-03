@@ -27,7 +27,7 @@ class Footer extends React.Component<Props, State> {
             <>
                 {this.state.isLoading ? (
                     <Container className="loadingBar">
-                        <h3>Loading</h3>
+                        <h3>Lade Daten...</h3>
                         <LoadingBar />
                     </Container>
                 ) : null}

@@ -24,7 +24,7 @@ class RetainerView extends React.Component<Props, State> {
     // }
 
     buildTable() {
-        let back: JSX.Element[] = [];
+        let back: JSX.Element[] = [<Container style={{ marginBottom: "5%" }}></Container>];
         this.props.data.forEach((e, eIx) => {
             let image = <img src={placeHolder} style={{ width: "50px", height: "50px" }} />;
             try {
@@ -70,14 +70,7 @@ class RetainerView extends React.Component<Props, State> {
     }
 
     render() {
-        return (
-            <>
-                <Container className="info">
-                    <h1>Retainer</h1>
-                </Container>
-                {this.buildTable()}
-            </>
-        );
+        return <>{this.buildTable()}</>;
     }
 }
 

@@ -92,6 +92,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     name: data.name,
                     itemLevel: data.itemLevel,
                     crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
+                    crafterName: data.crafter,
                     retainerOrder: data.retainerOrder,
                     undercuts: data.undercuts.map((data, ix) => {
                         return {
@@ -118,6 +119,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     name: data.name,
                     itemLevel: data.itemLevel,
                     crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
+                    crafterName: data.crafter,
                     orders: data.orders.map((data, ix) => {
                         return {
                             id: ix.toString(),
@@ -145,6 +147,7 @@ export class MarketCheck extends React.Component<Props, State> {
                     date: data.date.slice(0, 15),
                     name: data.name,
                     crafter: <img src={this.setCrafter(data.crafter)} style={{ width: "50px", height: "50px" }}></img>,
+                    crafterName: data.crafter,
                     type: "metrics",
                     amountHQListing: data.amountHQListing,
                     amountNQListings: data.amountNQListings,
