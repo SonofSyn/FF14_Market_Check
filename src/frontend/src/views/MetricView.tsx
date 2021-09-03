@@ -19,16 +19,22 @@ class MetricView extends React.Component<Props, State> {
     }
     buildData(): ItemMetrics[] {
         return this.props.data.map((e, eIx) => {
-            let item: ItemMetrics = {
-                id: eIx.toString(),
-                type: "metrics",
-                image: (
+            let image = <img src={placeHolder} style={{ width: "50px", height: "50px" }} />;
+            try {
+                image = (
                     <img
                         src={require(`./../../../../assets/images/${e.name}.png`).default}
                         style={{ width: "50px", height: "50px" }}
                     />
-                    // <img src={placeHolder} style={{ width: "50px", height: "50px" }} />
-                ),
+                );
+            } catch (e) {
+                console.log("image.error");
+            }
+
+            let item: ItemMetrics = {
+                id: eIx.toString(),
+                type: "metrics",
+                image: image,
                 itemLevel: e.itemLevel,
                 gameID: e.gameID,
                 date: e.date,

@@ -26,6 +26,17 @@ class RetainerView extends React.Component<Props, State> {
     buildTable() {
         let back: JSX.Element[] = [];
         this.props.data.forEach((e, eIx) => {
+            let image = <img src={placeHolder} style={{ width: "50px", height: "50px" }} />;
+            try {
+                image = (
+                    <img
+                        src={require(`./../../../../assets/images/${e.name}.png`).default}
+                        style={{ width: "50px", height: "50px" }}
+                    />
+                );
+            } catch (e) {
+                console.log("image.error");
+            }
             back.push(
                 <>
                     <Row>
@@ -38,13 +49,7 @@ class RetainerView extends React.Component<Props, State> {
                                     data={e.undercuts}
                                     header={
                                         <Row className="table-info">
-                                            <Col>
-                                                {/* <img src={placeHolder} style={{ width: "50px", height: "50px" }} /> */}
-                                                <img
-                                                    src={require(`./../../../../assets/images/${e.name}.png`).default}
-                                                    style={{ width: "50px", height: "50px" }}
-                                                />
-                                            </Col>
+                                            <Col>{image}</Col>
                                             <Col>{e.name}</Col>
                                             <Col>{e.crafter}</Col>
                                             <Col>{"ItemLevel: " + e.itemLevel}</Col>

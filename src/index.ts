@@ -36,7 +36,7 @@ const createWindow = (): void => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
     createWindow();
-
+    // todo check for data folder structure
     ipcMain.on("start-up", async (event: any, arg: string) => {
         let listingsBuffer = await asyncReadFile("./data/compiledData/listings.json");
         let metricsBuffer = await asyncReadFile("./data/compiledData/metrics.json");

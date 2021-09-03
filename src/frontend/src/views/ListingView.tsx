@@ -32,6 +32,17 @@ class ListingView extends React.Component<Props, State> {
         this.props.data.forEach((e, eIx) => {
             if (e.orders.length !== 0) {
                 if (e.orders[0].pricePerUnit >= this.state.priceFilter) {
+                    let image = <img src={placeHolder} style={{ width: "50px", height: "50px" }} />;
+                    try {
+                        image = (
+                            <img
+                                src={require(`./../../../../assets/images/${e.name}.png`).default}
+                                style={{ width: "50px", height: "50px" }}
+                            />
+                        );
+                    } catch (e) {
+                        console.log("image.error");
+                    }
                     back.push(
                         <>
                             <Row key={e + "" + eIx}>
@@ -42,13 +53,7 @@ class ListingView extends React.Component<Props, State> {
                                     data={e.orders}
                                     header={
                                         <Row className="table-info" key={e + "" + eIx}>
-                                            <Col>
-                                                {/* <img src={placeHolder} style={{ width: "50px", height: "50px" }} /> */}
-                                                <img
-                                                    src={require(`./../../../../assets/images/${e.name}.png`).default}
-                                                    style={{ width: "50px", height: "50px" }}
-                                                />
-                                            </Col>
+                                            <Col>{image}</Col>
                                             <Col key={e + "" + eIx}>{"ItemLevel: " + e.itemLevel}</Col>
                                             <Col key={e + "" + eIx}>{e.crafter}</Col>
                                             <Col key={e + "0" + eIx}>{e.name}</Col>
